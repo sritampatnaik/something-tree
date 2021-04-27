@@ -1,6 +1,15 @@
 <template>
+	<HeaderLO />
+	<div class="bg-gray-50 pt-12 w-full grid justify-items-center">
+		<h1
+			class="text-3xl max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto font-bold leading-tight text-gray-900"
+		>Forgot password?</h1>
+		<div class="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto mt-2 text-m text-gray-500">
+			<p>Don't worry we are here to help 🤝</p>
+		</div>
+	</div>
 	<div class="bg-gray-50 py-12 sm:px-6 lg:px-12 grid justify-items-center">
-		<div class="bg-white shadow sm:rounded-lg w-1/2">
+		<div class="mx-2 bg-white shadow sm:rounded-lg">
 			<div v-if="isPasswordResetForm" class="px-4 py-5 sm:p-6">
 				<h3 class="text-lg leading-6 font-medium text-gray-900">Enter New Password</h3>
 				<div class="mt-2 max-w-xl text-sm text-gray-500">
@@ -55,7 +64,7 @@
 			<div v-else class="px-4 py-5 sm:p-6">
 				<h3 class="text-lg leading-6 font-medium text-gray-900">Reset Your Password</h3>
 				<div class="mt-2 max-w-xl text-sm text-gray-500">
-					<p>Change password associated with your mail, We will mail you a reset link. Open your inbox and click on the reset link provided in the email.</p>
+					<p>Change password associated with your mail, We will email you a reset link. Open your inbox and click on the reset link provided in the email.</p>
 				</div>
 				<form class="mt-5 sm:flex sm:items-center" @submit.prevent="onEmailSubmit">
 					<div class="w-full sm:max-w-xs">
@@ -83,6 +92,7 @@
 </template>
 
 <script>
+	import HeaderLO from "@/components/HeaderLO";
 	export default {
 		data() {
 			return {
@@ -97,6 +107,9 @@
 				passwordChangeSuccess: "",
 			};
 		},
+		components: {
+			HeaderLO,
+		},
 		computed: {
 			args() {
 				return this.$route.query;
@@ -110,9 +123,12 @@
 					this.emailInvalid = "Invalid Email ❌";
 				}
 				console.log(this.$route.query);
-				this.emailStatus = await this.$store.dispatch("auth/resetPassword", {
-					email: this.email,
-				});
+				this.emailStatus = await this.$store.dispatch(
+					"auth/resetPassword",
+					{
+						email: this.email,
+					}
+				);
 			},
 			async onPasswordReset() {
 				if (this.passwordField1 === this.passwordField2) {
@@ -134,9 +150,12 @@
 			this.isPasswordResetForm = false;
 			if (this.args && this.args.oobCode) {
 				console.log("mount code");
-				const email = await this.$store.dispatch("auth/verifyPasswordCode", {
-					code: this.args.oobCode,
-				});
+				const email = await this.$store.dispatch(
+					"auth/verifyPasswordCode",
+					{
+						code: this.args.oobCode,
+					}
+				);
 				if (email !== this.args.email) {
 					this.isPasswordResetForm = false;
 					this.emailInvalid = "Something went wrong, Please try again";

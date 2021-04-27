@@ -83,7 +83,7 @@
 
 							<div class="text-sm">
 								<RouterLink
-									to="/"
+									to="/resetPassword"
 									class="font-medium text-indigo-600 hover:text-indigo-500"
 								>Forgot your password?</RouterLink>
 							</div>

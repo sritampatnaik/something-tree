@@ -16,8 +16,19 @@ const routes = [
     },
     {
         path: '/dashboard',
-        name: 'Dashboard',
-        component: () => import('../views/dashboard/index.vue')
+        component: () => import('../views/dashboard/Index.vue'),
+        children: [
+            {
+                path: 'team',
+                name: 'Team',
+                component: () => import('../views/dashboard/Team.vue')
+            },
+            {
+                path: '',
+                name: 'Dashboard',
+                component: () => import('../views/dashboard/Dashboard.vue')
+            }
+        ]
     },
     {
         path: '/resetpassword',

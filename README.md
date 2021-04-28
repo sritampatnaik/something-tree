@@ -28,4 +28,29 @@ This repository contains the actual app that requries login i.e the dashboard.
 - Stripe +Firebase Code (https://github.com/stripe-samples/firebase-subscription-payments)
 
 
+<<<<<<< HEAD
 
+=======
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+>>>>>>> 8b9eaa7136908e2ce2187308b77600385fbba3d2

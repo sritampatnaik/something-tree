@@ -53,6 +53,10 @@
 					v-if="passwordFieldError"
 					class="font-small text-red-600 focus:outline-none"
 				>{{ passwordFieldError }}</p>
+				<p
+					v-if="errorMessage"
+					class="font-small text-red-600 focus:outline-none"
+				>{{ errorMessage }}</p>
 				<p v-if="passwordChangeSuccess" class="font-small text-indigo-600 focus:outline-none">
 					{{ passwordChangeSuccess }}
 					<RouterLink
@@ -114,6 +118,9 @@
 			args() {
 				return this.$route.query;
 			},
+			errorMessage() {
+				return this.$store.state.auth.errorMessage;
+			},
 		},
 		methods: {
 			async onEmailSubmit() {
@@ -147,6 +154,7 @@
 		},
 		async mounted() {
 			console.log("mounted");
+			this.$store.commit("auth/SET_ERROR", "");
 			this.isPasswordResetForm = false;
 			if (this.args && this.args.oobCode) {
 				console.log("mount code");

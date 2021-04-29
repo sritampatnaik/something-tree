@@ -10,7 +10,7 @@
 			<p class="mt-2 text-center text-sm text-gray-600 max-w">
 				Or
 				<button
-					@click="isSignUp = !isSignUp"
+					@click="toggleTitle"
 					class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
 				>{{getSubtitle()}}</button>
 			</p>
@@ -76,6 +76,7 @@
 									id="remember_me"
 									name="remember_me"
 									type="checkbox"
+                                    v-model="rememberState"
 									class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
 								/>
 								<label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
@@ -103,6 +104,16 @@
 						>Sign up</button>
 					</div>
 				</form>
+				<div v-if="errorMessage" class="mt-3 -mb-3 rounded-md bg-red-50 p-4">
+					<div class="flex">
+						<div class="flex-shrink-0">
+							<XCircleIcon class="h-5 w-5 text-red-400" aria-hidden="true" />
+						</div>
+						<div class="ml-3">
+							<h3 class="text-sm font-small text-red-800">{{ errorMessage }}</h3>
+						</div>
+					</div>
+				</div>
 
 				<div class="mt-6">
 					<div class="relative">
@@ -164,6 +175,7 @@
 </template>
 
 <script>
+	import { XCircleIcon } from "@heroicons/vue/solid";
 	export default {
 		data() {
 			return {
@@ -173,12 +185,19 @@
 				fullname: "",
 				title: "Sign in to your account",
 				subtitle: "Create a new account",
+                rememberState: false
 			};
 		},
 		computed: {
 			authenticated() {
 				return this.$store.state.auth.authenticated;
 			},
+			errorMessage() {
+				return this.$store.state.auth.errorMessage;
+			},
+		},
+		components: {
+			XCircleIcon,
 		},
 		watch: {
 			authenticated() {
@@ -188,6 +207,10 @@
 			},
 		},
 		methods: {
+			toggleTitle() {
+				this.isSignUp = !this.isSignUp;
+                this.$store.commit("auth/SET_ERROR", "");
+			},
 			getTitle() {
 				return this.isSignUp ? this.subtitle : this.title;
 			},
@@ -198,6 +221,7 @@
 				this.$store.dispatch("auth/signIn", {
 					email: this.email,
 					password: this.password,
+                    persistence: this.rememberState
 				});
 			},
 			signup() {
@@ -219,6 +243,7 @@
 			},
 		},
 		created() {
+			this.$store.commit("auth/SET_ERROR", "");
 			if (this.authenticated) {
 				this.$router.push("/dashboard");
 			}

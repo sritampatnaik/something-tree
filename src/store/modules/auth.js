@@ -4,6 +4,7 @@ import router from "../../router";
 const state = () => ({
     authenticated: false,
     authUser: {},
+    errorMessage: ''
 })
 
 const mutations = {
@@ -25,6 +26,7 @@ const mutations = {
             state.authenticated = false
         }
     },
+    SET_ERROR: (state, message) => { state.errorMessage = message }
 
 }
 const actions = {
@@ -35,38 +37,70 @@ const actions = {
     //         commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims, token })
     //     }
     // },
-    signIn({ commit }, payload) {
+    async signIn({ commit }, payload) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
-        auth.signInWithEmailAndPassword(payload.email, payload.password)
-            .then((result) => {
-                const { allClaims: claims, ...authUser } = result.user
-                commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
-            })
-            .catch((error) => {
-                // Some error occurred, you can inspect the code: error.code
-                // Common errors could be invalid email and invalid or expired OTPs.
-                console.log('--signin', error);
-            });
+        commit('SET_ERROR', '')
+        try {
+            await auth.setPersistence(payload.persistence ? authModule.Auth.Persistence.LOCAL : authModule.Auth.Persistence.SESSION)
+            const result = await auth.signInWithEmailAndPassword(payload.email, payload.password)
+            const { allClaims: claims, ...authUser } = result.user
+            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
+        } catch (error) {
+            // Some error occurred, you can inspect the code: error.code
+            // Common errors could be invalid email and invalid or expired OTPs.
+            console.log('--signin', error);
+            let message = ''
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    message = 'User not found'
+                    break;
+                case 'auth/invalid-email':
+                    message = 'Invalid Email'
+                    break;
+                case 'auth/user-disabled':
+                    message = 'User blocked! Please contact the admin'
+                    break;
+                case 'auth/wrong-password':
+                    message = 'Wrong password'
+                    break;
+                default:
+                    message = error.message
+                    break;
+            }
+            commit('SET_ERROR', message)
+        }
     },
-    signInGoogle({ commit }) {
+    async signInGoogle({ commit }) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
+        commit('SET_ERROR', '')
         const provider = new authModule.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const { allClaims: claims, ...authUser } = result.user
-                commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
-            })
-            .catch((error) => {
-                // Some error occurred, you can inspect the code: error.code
-                // Common errors could be invalid email and invalid or expired OTPs.
-                console.log('--signin', error);
-            });
+        try {
+            await auth.setPersistence(authModule.Auth.Persistence.LOCAL)
+            // const signIns = await auth.fetchSignInMethodsForEmail(email)
+            // console.log(signIns);
+            const result = await auth.signInWithPopup(provider)
+            const { allClaims: claims, ...authUser } = result.user
+            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
+
+        } catch (error) {
+            // Some error occurred, you can inspect the code: error.code
+            // Common errors could be invalid email and invalid or expired OTPs.
+            console.log('--signin', error);
+            switch (error.code) {
+                case 'auth/account-exists-with-different-credential':
+                    commit('SET_ERROR', 'User exists with different credential')
+                    break;
+                default:
+                    commit('SET_ERROR', error.message)
+            }
+        }
     },
     signUp({ commit }, payload) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
+        commit('SET_ERROR', '')
         auth.createUserWithEmailAndPassword(payload.email, payload.password)
             .then(async (result) => {
                 if (payload.fullname) {
@@ -82,6 +116,25 @@ const actions = {
                 // Some error occurred, you can inspect the code: error.code
                 // Common errors could be invalid email and invalid or expired OTPs.
                 console.log('--signin', error);
+                let message = ''
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        message = 'Email already in use'
+                        break;
+                    case 'auth/invalid-email':
+                        message = 'Invalid Email'
+                        break;
+                    case 'auth/operation-not-allowed':
+                        message = 'Action blocked! Please contact the admin'
+                        break;
+                    case 'auth/weak-password':
+                        message = 'Please use a stronger password'
+                        break;
+                    default:
+                        message = error.message
+                        break;
+                }
+                commit('SET_ERROR', message)
             });
     },
     async signOut() {
@@ -94,16 +147,26 @@ const actions = {
         });
     },
 
-    async resetPassword(_, payload) {
+    async resetPassword({ commit }, payload) {
         try {
-            // const actionCode = {
-            //     url: `${process.env.baseUrl}/resetPassword?email=${payload.email}`
-            // }
-            // console.log(actionCode);
+            commit('SET_ERROR', '')
             await auth.sendPasswordResetEmail(payload.email);
             return 'Email Sent'
         } catch (error) {
             console.log(error);
+            let message = ''
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    message = 'Email not found'
+                    break;
+                case 'auth/invalid-email':
+                    message = 'Invalid Email'
+                    break;
+                default:
+                    message = error.message
+                    break;
+            }
+            commit('SET_ERROR', message)
         }
     },
     async verifyPasswordCode(_, payload) {
@@ -113,12 +176,32 @@ const actions = {
             console.log(error);
         }
     },
-    async confirmResetPassowrd(_, payload) {
+    async confirmResetPassowrd({ commit }, payload) {
         try {
+            commit('SET_ERROR', '')
             await auth.confirmPasswordReset(payload.code, payload.newPassword)
             return 'Password Saved'
         } catch (error) {
             console.log(error);
+            let message = ''
+            switch (error.code) {
+                case 'auth/expired-action-code':
+                    message = 'Password code expired. Try again'
+                    break;
+                case 'auth/invalid-action-code':
+                    message = 'Invalid code. Try again'
+                    break;
+                case 'auth/user-disabled':
+                    message = 'User blocked! Please contact the admin'
+                    break;
+                case 'auth/weak-password':
+                    message = 'Please use a strong password'
+                    break;
+                default:
+                    message = error.message
+                    break;
+            }
+            commit('SET_ERROR', message)
         }
     }
 }

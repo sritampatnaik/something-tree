@@ -1,5 +1,6 @@
 import { db } from "../../plugins/firebase";
-import { TAX_RATES, STRIPE_PUBLISHABLE_KEY } from "../../plugins/stripe";
+import { STRIPE_PUBLISHABLE_KEY } from "../../plugins/stripe";
+import { loadStripe } from "@stripe/stripe-js";
 
 const state = () => ({
     subscription: '',
@@ -21,7 +22,7 @@ const actions = {
             .doc(rootState.auth.authUser.uid)
             .collection('checkout_sessions')
             .add({
-                tax_rates: TAX_RATES,
+                // tax_rates: TAX_RATES,
                 allow_promotion_codes: true,
                 line_items: [payload.selectedPrice],
                 success_url: window.location.origin,
@@ -30,7 +31,7 @@ const actions = {
                     key: 'value',
                 },
             });
-        docRef.onSnapshot((snap) => {
+        docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
             if (error) {
                 // Show an error to your customer and then inspect your function logs.
@@ -40,7 +41,7 @@ const actions = {
             if (sessionId) {
                 // We have a session, let's redirect to Checkout
                 // Init Stripe
-                const stripe = window.Stripe(STRIPE_PUBLISHABLE_KEY)
+                const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY)
                 stripe.redirectToCheckout({ sessionId });
             }
         });

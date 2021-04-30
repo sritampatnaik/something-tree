@@ -8,7 +8,7 @@ const state = () => ({
 })
 
 const mutations = {
-    ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser }) {
+    ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser, claims }) {
         // you can request additional fields if they are optional (e.g. photoURL)
         if (authUser) {
             const { uid, email, emailVerified, displayName, photoURL } = authUser
@@ -18,7 +18,8 @@ const mutations = {
                 displayName,
                 email,
                 emailVerified,
-                photoURL: photoURL || null
+                photoURL: photoURL || null,
+                claims: claims
             }
             state.authenticated = true
         } else {
@@ -37,15 +38,22 @@ const actions = {
     //         commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims, token })
     //     }
     // },
-    async signIn({ commit }, payload) {
+    async getCustomClaimRole() {
+        await auth.currentUser.getIdToken(true);
+        const decodedToken = await auth.currentUser.getIdTokenResult();
+        return decodedToken.claims.stripeRole;
+    },
+
+    async signIn({ commit, dispatch }, payload) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
         commit('SET_ERROR', '')
         try {
             await auth.setPersistence(payload.persistence ? authModule.Auth.Persistence.LOCAL : authModule.Auth.Persistence.SESSION)
             const result = await auth.signInWithEmailAndPassword(payload.email, payload.password)
-            const { allClaims: claims, ...authUser } = result.user
-            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
+            const { ...authUser } = result.user
+            const claims = await dispatch('getCustomClaimRole')
+            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims: claims })
         } catch (error) {
             // Some error occurred, you can inspect the code: error.code
             // Common errors could be invalid email and invalid or expired OTPs.

@@ -19,14 +19,14 @@
 						</div>
 						<div class="hidden lg:block lg:ml-10">
 							<div class="flex space-x-4">
-								<template v-for="(item, key) in navigation" :key="key">
-									<!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-									<RouterLink
-										:to="item.to"
-										class="text-white rounded-md py-2 px-3 text-sm font-medium"
-										:class="[routeName === item.name ? 'bg-indigo-700 ' : 'hover:bg-indigo-500 hover:bg-opacity-75']"
-									>{{ item.name }}</RouterLink>
-								</template>
+								<!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
+								<RouterLink
+									:to="item.to"
+									v-for="(item, key) in navigation"
+									:key="key"
+									class="text-white rounded-md py-2 px-3 text-sm font-medium"
+									:class="[routeName === item.name ? 'bg-indigo-700 ' : 'hover:bg-indigo-500 hover:bg-opacity-75']"
+								>{{ item.name }}</RouterLink>
 							</div>
 						</div>
 					</div>
@@ -91,11 +91,11 @@
 									<MenuItems
 										class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 									>
-										<MenuItem v-for="item in profile" :key="item" v-slot="{ active }">
+										<MenuItem v-for="(item, key) in profile" :key="key" v-slot="{ active }">
 											<RouterLink
-												to="#"
+												:to="item.to"
 												:class="[active ? 'bg-gray-100' : '', 'block py-2 px-4 text-sm text-gray-700']"
-											>{{ item }}</RouterLink>
+											>{{ item.title }}</RouterLink>
 										</MenuItem>
 										<MenuItem v-slot="{ active }" class="w-full">
 											<button
@@ -113,18 +113,18 @@
 
 			<DisclosurePanel class="lg:hidden">
 				<div class="px-2 pt-2 pb-3 space-y-1">
-					<template v-for="(item, key) in navigation" :key="key">
-						<!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-						<RouterLink
-							:to="item.to"
-							class="text-white block rounded-md py-2 px-3 text-base font-medium"
-							:class="[routeName === item.name ? 'bg-indigo-700 ' : 'hover:bg-indigo-500 hover:bg-opacity-75']"
-						>{{ item.name }}</RouterLink>
-						<!-- <RouterLink
+					<!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
+					<RouterLink
+						:to="item.to"
+						v-for="(item, key) in navigation"
+						:key="key"
+						class="text-white block rounded-md py-2 px-3 text-base font-medium"
+						:class="[routeName === item.name ? 'bg-indigo-700 ' : 'hover:bg-indigo-500 hover:bg-opacity-75']"
+					>{{ item.name }}</RouterLink>
+					<!-- <RouterLink
 							:to="item.to"
 							class="text-white hover:bg-indigo-500 hover:bg-opacity-75  rounded-md py-2 px-3 text-base font-medium"
-						>{{ item.name }}</RouterLink>-->
-					</template>
+					>{{ item.name }}</RouterLink>-->
 				</div>
 				<div class="pt-4 pb-3 border-t border-indigo-700">
 					<div class="px-5 flex items-center">
@@ -148,11 +148,11 @@
 					</div>
 					<div class="mt-3 px-2 space-y-1">
 						<RouterLink
-							v-for="item in profile"
-							:key="item"
-							to="#"
+							v-for="(item, key) in profile"
+							:key="key"
+							:to="item.to"
 							class="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
-						>{{ item }}</RouterLink>
+						>{{ item.title }}</RouterLink>
 						<button
 							@click="signOut"
 							class="text-left w-full block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none"
@@ -192,7 +192,16 @@
 					{ name: "Calendar", to: "#" },
 					{ name: "Reports", to: "#" },
 				],
-				profile: ["Your Profile", "Settings"],
+				profile: [
+					{
+						title: "Your Profile",
+						to: "#",
+					},
+					{
+						title: "Settings",
+						to: "/dashboard/settings",
+					},
+				],
 			};
 		},
 		components: {

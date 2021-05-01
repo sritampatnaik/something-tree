@@ -23,7 +23,8 @@
 						</nav>
 					</aside>
 					<div class="divide-y divide-gray-200 lg:col-span-9">
-						<Billing />
+                        <RouterView />
+						<!-- <Billing /> -->
 					</div>
 				</div>
 			</div>
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-	import Billing from "@/components/loggedIn/Billing";
+	// import Billing from "@/components/loggedIn/Billing";
 	import {
 		BellIcon,
 		CogIcon,
@@ -49,7 +50,7 @@
 			KeyIcon,
 			UserCircleIcon,
 			ViewGridAddIcon,
-			Billing,
+			// Billing,
 		},
 		data() {
 			return {
@@ -70,7 +71,7 @@
 					},
 					{
 						name: "Billing",
-						to: "#",
+						to: "/dashboard/settings/billing",
 						icon: CreditCardIcon,
 						current: false,
 					},

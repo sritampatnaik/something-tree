@@ -31,7 +31,14 @@ const routes = [
             {
                 path: 'settings',
                 name: 'Settings',
-                component: () => import('../views/dashboard/Settings.vue')
+                component: () => import('../views/dashboard/Settings.vue'),
+                children: [
+                    {
+                        path: 'billing',
+                        name: 'Billing',
+                        component: () => import('../components/loggedIn/Billing.vue')
+                    },
+                ]
             }
         ]
     },

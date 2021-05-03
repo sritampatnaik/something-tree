@@ -1,11 +1,8 @@
-import { db } from "../../plugins/firebase";
+import { db, app } from "../../plugins/firebase";
 import { STRIPE_PUBLISHABLE_KEY } from "../../plugins/stripe";
 import { loadStripe } from "@stripe/stripe-js";
 
 const state = () => ({
-    subscription: '',
-    selectedPlan: null,
-    isPaid: false,
     errorMessage: ''
 })
 
@@ -45,6 +42,13 @@ const actions = {
                 stripe.redirectToCheckout({ sessionId });
             }
         });
+    },
+    async createCustomerPotal() {
+        const functionRef = app
+            .functions('asia-southeast2')
+            .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
+        const { data } = await functionRef({ returnUrl: window.location.origin });
+        window.location.assign(data.url);
     }
 }
 

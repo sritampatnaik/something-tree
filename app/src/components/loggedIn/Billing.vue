@@ -186,6 +186,11 @@
 					</div>
 				</div>
 			</form>
+			<button
+				@click="createCustomerPotal"
+				type="button"
+				class="ml-2 bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+			>Manage subscription</button>
 		</section>
 
 		<!-- Billing history -->
@@ -366,9 +371,12 @@
 					price: this.annualBillingEnabled
 						? this.selectedPlan.id_yearly
 						: this.selectedPlan.id_monthly,
-                    quantity: 1
+					quantity: 1,
 				};
 				this.$store.dispatch("billing/subscribe", { selectedPrice });
+			},
+			createCustomerPotal() {
+				this.$store.dispatch("billing/createCustomerPotal");
 			},
 		},
 	};

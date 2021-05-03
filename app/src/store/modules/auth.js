@@ -8,7 +8,7 @@ const state = () => ({
 })
 
 const mutations = {
-    ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser, claims }) {
+    ON_AUTH_STATE_CHANGED_MUTATION(state, { authUser }) {
         // you can request additional fields if they are optional (e.g. photoURL)
         if (authUser) {
             const { uid, email, emailVerified, displayName, photoURL } = authUser
@@ -19,13 +19,15 @@ const mutations = {
                 email,
                 emailVerified,
                 photoURL: photoURL || null,
-                claims: claims
             }
             state.authenticated = true
         } else {
             state.authUser = null
             state.authenticated = false
         }
+    },
+    SET_CUSTOME_ROLES(state, payload) {
+        state.authUser.claims = payload;
     },
     SET_ERROR: (state, message) => { state.errorMessage = message }
 
@@ -38,10 +40,10 @@ const actions = {
     //         commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims, token })
     //     }
     // },
-    async getCustomClaimRole() {
+    async getCustomClaimRole({ commit }) {
         await auth.currentUser.getIdToken(true);
         const decodedToken = await auth.currentUser.getIdTokenResult();
-        return decodedToken.claims.stripeRole;
+        commit('SET_CUSTOME_ROLES', decodedToken.claims.stripeRole)
     },
 
     async signIn({ commit, dispatch }, payload) {
@@ -52,8 +54,8 @@ const actions = {
             await auth.setPersistence(payload.persistence ? authModule.Auth.Persistence.LOCAL : authModule.Auth.Persistence.SESSION)
             const result = await auth.signInWithEmailAndPassword(payload.email, payload.password)
             const { ...authUser } = result.user
-            const claims = await dispatch('getCustomClaimRole')
-            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims: claims })
+            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser })
+            dispatch('getCustomClaimRole')
         } catch (error) {
             // Some error occurred, you can inspect the code: error.code
             // Common errors could be invalid email and invalid or expired OTPs.
@@ -79,7 +81,7 @@ const actions = {
             commit('SET_ERROR', message)
         }
     },
-    async signInGoogle({ commit }) {
+    async signInGoogle({ commit, dispatch }) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
         commit('SET_ERROR', '')
@@ -89,8 +91,9 @@ const actions = {
             // const signIns = await auth.fetchSignInMethodsForEmail(email)
             // console.log(signIns);
             const result = await auth.signInWithPopup(provider)
-            const { allClaims: claims, ...authUser } = result.user
-            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
+            const { ...authUser } = result.user
+            commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser })
+            dispatch('getCustomClaimRole')
 
         } catch (error) {
             // Some error occurred, you can inspect the code: error.code
@@ -105,7 +108,7 @@ const actions = {
             }
         }
     },
-    signUp({ commit }, payload) {
+    signUp({ commit, dispatch }, payload) {
         // Confirm the link is a sign-in with email link.
         // The client SDK will parse the code from the link for you.
         commit('SET_ERROR', '')
@@ -116,9 +119,10 @@ const actions = {
                         displayName: payload.fullname
                     })
                 }
-                const { allClaims: claims, ...authUser } = result.user
+                const { ...authUser } = result.user
                 authUser.displayName = payload.fullname ? payload.fullname : ''
-                commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser, claims })
+                commit('ON_AUTH_STATE_CHANGED_MUTATION', { authUser })
+                dispatch('getCustomClaimRole')
             })
             .catch((error) => {
                 // Some error occurred, you can inspect the code: error.code

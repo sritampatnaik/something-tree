@@ -15,5 +15,6 @@ auth.onAuthStateChanged(user => {
     // store.dispatch("auth/setUserLogInState", user);
     const authUser = user
     store.commit('auth/ON_AUTH_STATE_CHANGED_MUTATION', { authUser })
+    store.dispatch('auth/getCustomClaimRole')
 });
 app.mount('#app')

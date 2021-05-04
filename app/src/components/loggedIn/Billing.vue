@@ -125,7 +125,15 @@
 						<RadioGroup v-model="selectedPlan">
 							<RadioGroupLabel class="sr-only">Pricing plans</RadioGroupLabel>
 							<div class="relative bg-white rounded-md -space-y-px">
+								<div v-if="isProductsLoading" class="w-full border border-gray-300 rounded-md p-4 mx-auto">
+									<div class="animate-pulse flex justify-between">
+										<span class="h-4 bg-indigo-400 rounded w-20"></span>
+										<span class="h-4 ml-20 bg-indigo-400 rounded w-1/6"></span>
+										<span class="h-4 bg-indigo-400 rounded w-1/5"></span>
+									</div>
+								</div>
 								<RadioGroupOption
+									v-else
 									as="template"
 									v-for="(plan, planIdx) in plans"
 									:key="plan.name"
@@ -147,15 +155,15 @@
 										<RadioGroupDescription class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center">
 											<span
 												:class="[checked ? 'text-indigo-900' : 'text-gray-900', 'font-medium']"
-											>${{ plan.priceMonthly }} / mo</span>
+											>${{ plan.price_month }} / mo</span>
 											{{ ' ' }}
 											<span
 												:class="checked ? 'text-indigo-700' : 'text-gray-500'"
-											>(${{ plan.priceYearly }} / yr)</span>
+											>(${{ plan.price_year }} / yr)</span>
 										</RadioGroupDescription>
 										<RadioGroupDescription
 											:class="[checked ? 'text-indigo-700' : 'text-gray-500', 'ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right']"
-										>{{ plan.limit }}</RadioGroupDescription>
+										>{{ plan.description }}</RadioGroupDescription>
 									</div>
 								</RadioGroupOption>
 							</div>
@@ -182,7 +190,7 @@
 						<button
 							type="submit"
 							:disabled="paymentState"
-							class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+							class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
 						>
 							<svg
 								v-if="isSavePriceClick"
@@ -197,7 +205,7 @@
     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
 								/>
 								<path
-									fill="#000"
+									fill="#3949ab"
 									opacity="1"
 									d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
     C22.32,8.481,24.301,9.057,26.013,10.047z"
@@ -212,7 +220,7 @@
 				@click="createCustomerPotal"
 				type="button"
 				:disabled="paymentState"
-				class="ml-2 bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+				class="ml-2 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
 			>
 				<svg
 					v-if="isManageSubsClick"
@@ -227,7 +235,7 @@
     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
 					/>
 					<path
-						fill="#000"
+						fill="#3949ab"
 						opacity="1"
 						d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
     C22.32,8.481,24.301,9.057,26.013,10.047z"
@@ -246,7 +254,15 @@
 						class="text-lg leading-6 font-medium text-gray-900"
 					>Billing history</h2>
 				</div>
-				<div class="mt-6 flex flex-col">
+				<div v-if="isBillingHistroyLoading" class="w-full border border-gray-300 rounded-md p-4">
+					<div class="animate-pulse flex justify-between">
+						<span class="h-4 bg-indigo-400 rounded w-1/6"></span>
+						<span class="h-4 -ml-2 bg-indigo-400 rounded w-1/6"></span>
+						<span class="h-4 -ml-10 bg-indigo-400 rounded w-20"></span>
+						<span class="h-4 bg-indigo-400 rounded w-1/6"></span>
+					</div>
+				</div>
+				<div v-else class="mt-6 flex flex-col">
 					<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 							<div class="overflow-hidden border-t border-gray-200">
@@ -260,7 +276,7 @@
 											<th
 												scope="col"
 												class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-											>Description</th>
+											>Selected Plan</th>
 											<th
 												scope="col"
 												class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -277,14 +293,18 @@
 										</tr>
 									</thead>
 									<tbody class="bg-white divide-y divide-gray-200">
-										<tr v-for="payment in payments" :key="payment.id">
+										<tr v-for="(payment, key) in billingHistory" :key="key">
 											<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-												<time :datetime="payment.datetime">{{ payment.date }}</time>
+												<time>{{ payment.created.toDateString() }}</time>
 											</td>
-											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.description }}</td>
+											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.role }}</td>
 											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.amount }}</td>
 											<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-												<a :href="payment.href" class="text-indigo-600 hover:text-indigo-900">View receipt</a>
+												<a
+													:href="payment.invoiceURL"
+													target="_blank"
+													class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+												>View Invoice</a>
 											</td>
 										</tr>
 									</tbody>
@@ -369,68 +389,75 @@
 				open: false,
 				selectedPlan: null,
 				annualBillingEnabled: true,
-                isSavePriceClick: false,
-                isManageSubsClick: false,
+				isSavePriceClick: false,
+				isManageSubsClick: false,
 				plans: [
 					{
-						name: "Startup",
-						priceMonthly: 29,
+						name: "Free",
+						price_month: "-",
 						currency: "usd",
-						priceYearly: 290,
-						limit: "Up to 5 active job postings",
-					},
-					{
-						name: "Business",
-						priceMonthly: 99,
-						id_monthly: "price_1IlwGXC0w8qvCJAgxQnbZqio",
-						id_yearly: "price_1IlwGXC0w8qvCJAg2CHCqnTT",
-						currency: "usd",
-						priceYearly: 990,
-						limit: "Up to 25 active job postings",
-					},
-					{
-						name: "Enterprise",
-						priceMonthly: 249,
-						currency: "usd",
-						priceYearly: 2490,
-						limit: "Unlimited active job postings",
-					},
-				],
-				payments: [
-					{
-						id: 1,
-						date: "1/1/2020",
-						datetime: "2020-01-01",
-						description: "Business Plan - Annual Billing",
-						amount: "CA$109.00",
-						href: "#",
+						price_year: "-",
+						description: "This is free",
 					},
 				],
 			};
 		},
 		mounted() {
-			this.selectedPlan = this.plans[1];
+			this.selectedPlan = this.plans[0];
 		},
 		computed: {
 			paymentState() {
-				return this.isSavePriceClick || this.isManageSubsClick
+				return this.isSavePriceClick || this.isManageSubsClick;
+			},
+			isProductsLoading() {
+				return this.$store.state.billing.isProductsLoading;
+			},
+			products() {
+				return this.$store.state.billing.products;
+			},
+			isBillingHistroyLoading() {
+				return this.$store.state.billing.isBillingHistoryLoading;
+			},
+			billingHistory() {
+				return this.$store.state.billing.billingHistory;
+			},
+		},
+		watch: {
+			isProductsLoading() {
+				this.plans = [
+					{
+						name: "Free",
+						price_month: "-",
+						currency: "usd",
+						price_year: "-",
+						description: "This is free",
+					},
+					...this.products,
+				];
+				this.selectedPlan = this.plans[0];
 			},
 		},
 		methods: {
 			onPlanChange() {
-                this.isSavePriceClick = true;
-				const selectedPrice = {
-					price: this.annualBillingEnabled
-						? this.selectedPlan.id_yearly
-						: this.selectedPlan.id_monthly,
-					quantity: 1,
-				};
-				this.$store.dispatch("billing/subscribe", { selectedPrice });
+				if (this.selectedPlan.id_year && this.selectedPlan.id_month) {
+					this.isSavePriceClick = true;
+					const selectedPrice = {
+						price: this.annualBillingEnabled
+							? this.selectedPlan.id_year
+							: this.selectedPlan.id_month,
+						quantity: 1,
+					};
+					this.$store.dispatch("billing/subscribe", { selectedPrice });
+				}
 			},
 			createCustomerPotal() {
-                this.isManageSubsClick = true;
+				this.isManageSubsClick = true;
 				this.$store.dispatch("billing/createCustomerPotal");
 			},
+		},
+		created() {
+			this.$store.dispatch("billing/getProducts");
+			this.$store.dispatch("billing/getSubscriptions");
 		},
 	};
 </script>

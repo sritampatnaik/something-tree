@@ -23,7 +23,7 @@
 						</nav>
 					</aside>
 					<div class="divide-y divide-gray-200 lg:col-span-9">
-                        <RouterView />
+						<RouterView />
 						<!-- <Billing /> -->
 					</div>
 				</div>
@@ -92,6 +92,13 @@
 						: { ...doc, current: false };
 				});
 			},
+		},
+		created() {
+			this.subNavigation = this.subNavigation.map((doc) => {
+				return doc.to === this.$route.path
+					? { ...doc, current: true }
+					: { ...doc, current: false };
+			});
 		},
 	};
 </script>

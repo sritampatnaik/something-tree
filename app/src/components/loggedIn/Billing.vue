@@ -181,16 +181,60 @@
 					<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
 						<button
 							type="submit"
-							class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-						>Save</button>
+							:disabled="paymentState"
+							class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+						>
+							<svg
+								v-if="isSavePriceClick"
+								class="animate-spin h-5 w-5 mr-2 -ml-1"
+								viewBox="0 0 40 40"
+								enable-background="new 0 0 40 40"
+							>
+								<path
+									fill="#fff"
+									d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
+								/>
+								<path
+									fill="#000"
+									opacity="1"
+									d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z"
+								/>
+							</svg>
+							{{ isSavePriceClick? "Loading" : "Save" }}
+						</button>
 					</div>
 				</div>
 			</form>
 			<button
 				@click="createCustomerPotal"
 				type="button"
-				class="ml-2 bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-			>Manage subscription</button>
+				:disabled="paymentState"
+				class="ml-2 bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+			>
+				<svg
+					v-if="isManageSubsClick"
+					class="animate-spin h-5 w-5 mr-2 -ml-1"
+					viewBox="0 0 40 40"
+					enable-background="new 0 0 40 40"
+				>
+					<path
+						fill="#fff"
+						d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
+					/>
+					<path
+						fill="#000"
+						opacity="1"
+						d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z"
+					/>
+				</svg>
+				{{ isManageSubsClick? "Loading" : "Manage subscription" }}
+			</button>
 		</section>
 
 		<!-- Billing history -->
@@ -325,6 +369,8 @@
 				open: false,
 				selectedPlan: null,
 				annualBillingEnabled: true,
+                isSavePriceClick: false,
+                isManageSubsClick: false,
 				plans: [
 					{
 						name: "Startup",
@@ -365,8 +411,14 @@
 		mounted() {
 			this.selectedPlan = this.plans[1];
 		},
+		computed: {
+			paymentState() {
+				return this.isSavePriceClick || this.isManageSubsClick
+			},
+		},
 		methods: {
 			onPlanChange() {
+                this.isSavePriceClick = true;
 				const selectedPrice = {
 					price: this.annualBillingEnabled
 						? this.selectedPlan.id_yearly
@@ -376,6 +428,7 @@
 				this.$store.dispatch("billing/subscribe", { selectedPrice });
 			},
 			createCustomerPotal() {
+                this.isManageSubsClick = true;
 				this.$store.dispatch("billing/createCustomerPotal");
 			},
 		},

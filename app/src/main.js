@@ -5,9 +5,7 @@ import store from './store'
 import { auth } from '@/plugins/firebase';
 import './assets/tailwind.css'
 
-let app = createApp(App)
-app.use(store)
-app.use(router)
+let app;
 
 
 auth.onAuthStateChanged(user => {
@@ -16,5 +14,10 @@ auth.onAuthStateChanged(user => {
     const authUser = user
     store.commit('auth/ON_AUTH_STATE_CHANGED_MUTATION', { authUser })
     store.dispatch('auth/getCustomClaimRole')
+    if (!app) {
+        app = createApp(App);
+        app.use(store)
+        app.use(router)
+        app.mount('#app')
+    }
 });
-app.mount('#app')

@@ -71,7 +71,7 @@
 					},
 					{
 						name: "Billing",
-						to: "/dashboard/settings/billing",
+						to: "/settings/billing",
 						icon: CreditCardIcon,
 						current: false,
 					},

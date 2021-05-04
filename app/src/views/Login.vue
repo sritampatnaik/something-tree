@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+	<div v-if="!authenticated" class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<img
 				class="mx-auto h-12 w-auto"
@@ -76,7 +76,7 @@
 									id="remember_me"
 									name="remember_me"
 									type="checkbox"
-                                    v-model="rememberState"
+									v-model="rememberState"
 									class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
 								/>
 								<label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
@@ -185,7 +185,7 @@
 				fullname: "",
 				title: "Sign in to your account",
 				subtitle: "Create a new account",
-                rememberState: false
+				rememberState: false,
 			};
 		},
 		computed: {
@@ -209,7 +209,7 @@
 		methods: {
 			toggleTitle() {
 				this.isSignUp = !this.isSignUp;
-                this.$store.commit("auth/SET_ERROR", "");
+				this.$store.commit("auth/SET_ERROR", "");
 			},
 			getTitle() {
 				return this.isSignUp ? this.subtitle : this.title;
@@ -221,7 +221,7 @@
 				this.$store.dispatch("auth/signIn", {
 					email: this.email,
 					password: this.password,
-                    persistence: this.rememberState
+					persistence: this.rememberState,
 				});
 			},
 			signup() {

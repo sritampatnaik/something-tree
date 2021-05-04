@@ -28,8 +28,14 @@ const routes = [
                 name: 'Dashboard',
                 component: () => import('../views/dashboard/Dashboard.vue')
             },
+        ]
+    },
+    {
+        path: '/settings',
+        component: () => import('../views/dashboard/Header.vue'),
+        children: [
             {
-                path: 'settings',
+                path: '',
                 name: 'Settings',
                 component: () => import('../views/dashboard/Settings.vue'),
                 children: [
@@ -39,7 +45,7 @@ const routes = [
                         component: () => import('../components/loggedIn/Billing.vue')
                     },
                 ]
-            }
+            },
         ]
     },
     {

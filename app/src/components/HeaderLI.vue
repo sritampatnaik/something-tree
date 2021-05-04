@@ -199,7 +199,7 @@
 					},
 					{
 						title: "Settings",
-						to: "/dashboard/settings",
+						to: "/settings",
 					},
 				],
 			};

@@ -1,120 +1,110 @@
 <template>
 	<div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-		<section aria-labelledby="payment_details_heading">
-			<form action="#" method="POST">
-				<div class="shadow sm:rounded-md sm:overflow-hidden">
-					<div class="bg-white py-6 px-4 sm:p-6">
-						<div>
-							<h2
-								id="payment_details_heading"
-								class="text-lg leading-6 font-medium text-gray-900"
-							>Payment details</h2>
-							<p
-								class="mt-1 text-sm text-gray-500"
-							>Update your billing information. Please note that updating your location could affect your tax rates.</p>
-						</div>
-
-						<div class="mt-6 grid grid-cols-4 gap-6">
-							<div class="col-span-4 sm:col-span-2">
-								<label for="first_name" class="block text-sm font-medium text-gray-700">First name</label>
-								<input
-									type="text"
-									name="first_name"
-									id="first_name"
-									autocomplete="cc-given-name"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								/>
-							</div>
-
-							<div class="col-span-4 sm:col-span-2">
-								<label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
-								<input
-									type="text"
-									name="last_name"
-									id="last_name"
-									autocomplete="cc-family-name"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								/>
-							</div>
-
-							<div class="col-span-4 sm:col-span-2">
-								<label for="email_address" class="block text-sm font-medium text-gray-700">Email address</label>
-								<input
-									type="text"
-									name="email_address"
-									id="email_address"
-									autocomplete="email"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								/>
-							</div>
-
-							<div class="col-span-4 sm:col-span-1">
-								<label for="expiration_date" class="block text-sm font-medium text-gray-700">Expration date</label>
-								<input
-									type="text"
-									name="expiration_date"
-									id="expiration_date"
-									autocomplete="cc-exp"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-									placeholder="MM / YY"
-								/>
-							</div>
-
-							<div class="col-span-4 sm:col-span-1">
-								<label for="security_code" class="flex items-center text-sm font-medium text-gray-700">
-									<span>Security code</span>
-									<QuestionMarkCircleIcon
-										class="ml-1 flex-shrink-0 h-5 w-5 text-gray-300"
-										aria-hidden="true"
-									/>
-								</label>
-								<input
-									type="text"
-									name="security_code"
-									id="security_code"
-									autocomplete="cc-csc"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								/>
-							</div>
-
-							<div class="col-span-4 sm:col-span-2">
-								<label for="country" class="block text-sm font-medium text-gray-700">Country / Region</label>
-								<select
-									id="country"
-									name="country"
-									autocomplete="country"
-									class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								>
-									<option>United States</option>
-									<option>Canada</option>
-									<option>Mexico</option>
-								</select>
-							</div>
-
-							<div class="col-span-4 sm:col-span-2">
-								<label for="postal_code" class="block text-sm font-medium text-gray-700">ZIP / Postal</label>
-								<input
-									type="text"
-									name="postal_code"
-									id="postal_code"
-									autocomplete="postal-code"
-									class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
-								/>
-							</div>
-						</div>
+		<!-- Manage Subs -->
+		<section v-if="claims" aria-labelledby="plan_heading_no_subs">
+			<div class="shadow sm:rounded-md sm:overflow-hidden">
+				<div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+					<div>
+						<h2 id="plan_heading" class="text-lg leading-6 font-medium text-gray-900">Plan</h2>
 					</div>
-					<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-						<button
-							type="submit"
-							class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-						>Save</button>
+
+					<div>
+						<span class="sr-only">Pricing plans</span>
+						<div class="relative bg-white rounded-md -space-y-px">
+							<div v-if="isProductsLoading" class="w-full border border-gray-300 rounded-md p-4 mx-auto">
+								<div class="animate-pulse flex justify-between">
+									<span class="h-4 bg-indigo-400 rounded w-20"></span>
+									<span class="h-4 ml-20 bg-indigo-400 rounded w-1/6"></span>
+									<span class="h-4 bg-indigo-400 rounded w-1/5"></span>
+								</div>
+							</div>
+							<div v-else v-for="(plan, planIdx) in plans" :key="plan.name" :value="plan">
+								<div
+									:class="[planIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '', planIdx === plans.length - 1 ? 'rounded-bl-md rounded-br-md' : '', claims === plan.name ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200', 'relative border p-4 flex flex-col cursor-pointer md:pl-4 md:pr-6 md:grid md:grid-cols-3']"
+								>
+									<div class="flex items-center text-sm">
+										<span as="span" class="ml-3 font-medium text-gray-900">{{ plan.name }}</span>
+									</div>
+									<div class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center">
+										<span
+											:class="[claims === plan.name ? 'text-indigo-900' : 'text-gray-900', 'font-medium']"
+										>${{ plan.price_month }} / mo</span>
+										{{ ' ' }}
+										<span
+											:class="claims === plan.name ? 'text-indigo-700' : 'text-gray-500'"
+										>(${{ plan.price_year }} / yr)</span>
+									</div>
+									<div
+										:class="[claims === plan.name ? 'text-indigo-700' : 'text-gray-500', 'ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right']"
+									>{{ plan.description }}</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</form>
+				<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+					<button
+						v-if="!isProductsLoading"
+						@click="createCustomerPotal('isManageSubsClick')"
+						type="button"
+						:disabled="paymentState"
+						class="ml-2 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+					>
+						<svg
+							v-if="isManageSubsClick"
+							class="animate-spin h-5 w-5 mr-2 -ml-1"
+							viewBox="0 0 40 40"
+							enable-background="new 0 0 40 40"
+						>
+							<path
+								fill="#fff"
+								d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
+							/>
+							<path
+								fill="#4F46E5"
+								opacity="1"
+								d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z"
+							/>
+						</svg>
+						{{ isManageSubsClick? "Loading" : "Manage subscription" }}
+					</button>
+					<button
+						v-if="!isProductsLoading"
+						@click="createCustomerPotal('isCancelSubsClick')"
+						type="button"
+						:disabled="paymentState"
+						class="ml-2 bg-red-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
+					>
+						<svg
+							v-if="isCancelSubsClick"
+							class="animate-spin h-5 w-5 mr-2 -ml-1"
+							viewBox="0 0 40 40"
+							enable-background="new 0 0 40 40"
+						>
+							<path
+								fill="#fff"
+								d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
+							/>
+							<path
+								fill="#DC2626"
+								opacity="1"
+								d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z"
+							/>
+						</svg>
+						{{ isCancelSubsClick? "Loading" : "Cancel subscription" }}
+					</button>
+				</div>
+			</div>
 		</section>
 
 		<!-- Plan -->
-		<section aria-labelledby="plan_heading">
+		<section v-else aria-labelledby="plan_heading_no_subs">
 			<form @submit.prevent="onPlanChange">
 				<div class="shadow sm:rounded-md sm:overflow-hidden">
 					<div class="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -169,7 +159,7 @@
 							</div>
 						</RadioGroup>
 
-						<SwitchGroup as="div" class="flex items-center">
+						<SwitchGroup v-if="!isProductsLoading" as="div" class="flex items-center">
 							<Switch
 								v-model="annualBillingEnabled"
 								:class="[annualBillingEnabled ? 'bg-indigo-500' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors ease-in-out duration-200']"
@@ -189,6 +179,7 @@
 					<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
 						<button
 							type="submit"
+							v-if="!isProductsLoading"
 							:disabled="paymentState"
 							class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
 						>
@@ -205,7 +196,7 @@
     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
 								/>
 								<path
-									fill="#3949ab"
+									fill="#4F46E5"
 									opacity="1"
 									d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
     C22.32,8.481,24.301,9.057,26.013,10.047z"
@@ -216,33 +207,6 @@
 					</div>
 				</div>
 			</form>
-			<button
-				@click="createCustomerPotal"
-				type="button"
-				:disabled="paymentState"
-				class="ml-2 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50"
-			>
-				<svg
-					v-if="isManageSubsClick"
-					class="animate-spin h-5 w-5 mr-2 -ml-1"
-					viewBox="0 0 40 40"
-					enable-background="new 0 0 40 40"
-				>
-					<path
-						fill="#fff"
-						d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
-					/>
-					<path
-						fill="#3949ab"
-						opacity="1"
-						d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-    C22.32,8.481,24.301,9.057,26.013,10.047z"
-					/>
-				</svg>
-				{{ isManageSubsClick? "Loading" : "Manage subscription" }}
-			</button>
 		</section>
 
 		<!-- Billing history -->
@@ -276,7 +240,7 @@
 											<th
 												scope="col"
 												class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-											>Selected Plan</th>
+											>Invoice Number</th>
 											<th
 												scope="col"
 												class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -297,7 +261,7 @@
 											<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
 												<time>{{ payment.created.toDateString() }}</time>
 											</td>
-											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.role }}</td>
+											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.invoice_id }}</td>
 											<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ payment.amount }}</td>
 											<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 												<a
@@ -320,7 +284,6 @@
 
 <script>
 	// import { ref } from "vue";
-	import { QuestionMarkCircleIcon } from "@heroicons/vue/solid";
 	// const plans = [
 	// 	{
 	// 		name: "Startup",
@@ -362,7 +325,6 @@
 	} from "@headlessui/vue";
 	export default {
 		components: {
-			QuestionMarkCircleIcon,
 			RadioGroup,
 			RadioGroupDescription,
 			RadioGroupLabel,
@@ -391,6 +353,7 @@
 				annualBillingEnabled: true,
 				isSavePriceClick: false,
 				isManageSubsClick: false,
+				isCancelSubsClick: false,
 				plans: [
 					{
 						name: "Free",
@@ -421,6 +384,9 @@
 			billingHistory() {
 				return this.$store.state.billing.billingHistory;
 			},
+			claims() {
+				return this.$store.state.auth.authUser.claims;
+			},
 		},
 		watch: {
 			isProductsLoading() {
@@ -450,14 +416,14 @@
 					this.$store.dispatch("billing/subscribe", { selectedPrice });
 				}
 			},
-			createCustomerPotal() {
-				this.isManageSubsClick = true;
+			createCustomerPotal(checker) {
+				this[checker] = true;
 				this.$store.dispatch("billing/createCustomerPotal");
 			},
 		},
 		created() {
 			this.$store.dispatch("billing/getProducts");
-			this.$store.dispatch("billing/getSubscriptions");
+			this.$store.dispatch("billing/getBillingHistory");
 		},
 	};
 </script>

@@ -65,7 +65,7 @@ const actions = {
                 // tax_rates: TAX_RATES,
                 allow_promotion_codes: true,
                 line_items: [payload.selectedPrice],
-                success_url: window.location.origin,
+                success_url: `${window.location.origin}/#/settings/billing`,
                 cancel_url: window.location.origin,
                 metadata: {
                     key: 'value',
@@ -90,34 +90,39 @@ const actions = {
         const functionRef = app
             .functions('asia-southeast2')
             .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
-        const { data } = await functionRef({ returnUrl: window.location.origin });
+        const { data } = await functionRef({ returnUrl: `${window.location.origin}/#/settings/billing` });
         window.location.assign(data.url);
     },
-    async getSubscriptions({ rootState, commit }) {
+    async getBillingHistory({ rootState, commit }) {
         commit('SET_BILLING_HISTROY_LOADING')
-        const { docs } = await db.collection('customers')
+        const docs = await db.collection('customers')
             .doc(rootState.auth.authUser.uid)
             .collection('subscriptions')
-            .where('status', 'in', ['trialing', 'active'])
+            // .where('status', 'in', ['trialing', 'active'])
             .get()
-        const subs = docs.map(async doc => {
-            const { created, role, items } = doc.data()
-            const sub = {
-                id: doc.id,
-                created: created.toDate(),
-                role,
-                amount: new Intl.NumberFormat('en-US', { style: 'currency', currency: items[0].plan.currency }).format(items[0].plan.amount / 100),
-                currency: items[0].plan.currency
-            }
-            const invoiceData = await doc.ref.collection('invoices').where('subscription', '==', doc.id).get()
-            if (!invoiceData.empty) {
-                sub.invoiceURL = invoiceData.docs[0].data().hosted_invoice_url
-            } else sub.invoiceURL = null
-            return sub
-        })
+        if (!docs.empty) {
+            const subs = docs.docs.map(async doc => {
+                const invoiceData = await doc.ref.collection('invoices').get()
+                if (!invoiceData.empty) {
+                    const bill = invoiceData.docs.map(doc => {
+                        const { amount_paid, currency, number, created, hosted_invoice_url } = doc.data()
+                        return {
+                            id: doc.id,
+                            created: new Date(created * 1000),
+                            invoice_id: number,
+                            amount: new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount_paid / 100),
+                            invoiceURL: hosted_invoice_url
+                        }
+                    })
+                    return bill
+                }
+            })
+            const val = await Promise.all(subs)
+            commit('SET_BILLING_HISTROY', val.flat())
+        } else {
+            commit('SET_BILLING_HISTROY', null)
+        }
 
-        const val = await Promise.all(subs)
-        commit('SET_BILLING_HISTROY', val)
     }
 }
 

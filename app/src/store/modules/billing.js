@@ -8,6 +8,7 @@ const state = () => ({
     isProductsLoading: false,
     billingHistory: [],
     isBillingHistoryLoading: false,
+    subs: null,
 })
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
     },
     SET_BILLING_HISTROY_LOADING: (state) => {
         state.isBillingHistoryLoading = true;
+    },
+    SET_SUBSCRIPTION(state, payload) {
+        state.subs = payload
     }
 }
 
@@ -123,6 +127,28 @@ const actions = {
             commit('SET_BILLING_HISTROY', null)
         }
 
+    },
+    getCustomerSubs({ rootState, commit }) {
+        db.collection('customers')
+            .doc(rootState.auth.authUser.uid)
+            .collection('subscriptions')
+            .where('status', 'in', ['trialing', 'active'])
+            .onSnapshot(async (snapshot) => {
+                // In this implementation we only expect one active or trialing subscription to exist.
+                const doc = snapshot.docChanges().forEach((change) => {
+                    if (change.type === "added") {
+                        // console.log("New city: ", change.doc.data());
+                        const { items, role } = change.doc.data()
+                        console.log('--subs-changes-added', items, role);
+                    }
+                    if (change.type === "modified") {
+                        // console.log("Modified city: ", change.doc.data());
+                        const { items, role } = change.doc.data()
+                        console.log('--subs-changes-modified', items, role);
+                    }
+                });
+                commit('SET_SUBSCRIPTION', doc)
+            });
     }
 }
 

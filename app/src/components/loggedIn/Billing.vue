@@ -424,6 +424,7 @@
 		created() {
 			this.$store.dispatch("billing/getProducts");
 			this.$store.dispatch("billing/getBillingHistory");
+			this.$store.dispatch("billing/getCustomerSubs");
 		},
 	};
 </script>

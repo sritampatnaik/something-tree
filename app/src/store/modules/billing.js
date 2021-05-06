@@ -122,7 +122,7 @@ const actions = {
                 }
             })
             const val = await Promise.all(subs)
-            commit('SET_BILLING_HISTROY', val.flat())
+            commit('SET_BILLING_HISTROY', val.flat().sort((a, b) => b.created - a.created))
         } else {
             commit('SET_BILLING_HISTROY', null)
         }

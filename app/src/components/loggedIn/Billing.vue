@@ -370,7 +370,7 @@
 		},
 		computed: {
 			paymentState() {
-				return this.isSavePriceClick || this.isManageSubsClick;
+				return this.isSavePriceClick || this.isManageSubsClick || this.isCancelSubsClick;
 			},
 			isProductsLoading() {
 				return this.$store.state.billing.isProductsLoading;

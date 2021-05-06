@@ -66,7 +66,7 @@ const actions = {
                 allow_promotion_codes: true,
                 line_items: [payload.selectedPrice],
                 success_url: `${window.location.origin}/#/settings/billing`,
-                cancel_url: window.location.origin,
+                cancel_url: `${window.location.origin}/#/settings/billing`,
                 metadata: {
                     key: 'value',
                 },

@@ -1,5 +1,4 @@
 import { db, app } from "../../plugins/firebase";
-import { STRIPE_PUBLISHABLE_KEY } from "../../plugins/stripe";
 import { loadStripe } from "@stripe/stripe-js";
 
 const state = () => ({
@@ -85,7 +84,7 @@ const actions = {
             if (sessionId) {
                 // We have a session, let's redirect to Checkout
                 // Init Stripe
-                const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY)
+                const stripe = await loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY)
                 stripe.redirectToCheckout({ sessionId });
             }
         });

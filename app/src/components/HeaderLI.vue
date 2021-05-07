@@ -59,12 +59,13 @@
 					</div>
 					<div class="hidden lg:block lg:ml-4">
 						<div class="flex items-center">
-							<button
+							<!-- <button
 								class="bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white"
 							>
 								<span class="sr-only">View notifications</span>
 								<BellIcon class="h-6 w-6" aria-hidden="true" />
-							</button>
+							</button> -->
+                            <Notification />
 
 							<!-- Profile dropdown -->
 							<Menu as="div" class="ml-3 relative flex-shrink-0">
@@ -179,6 +180,7 @@
 		MenuItem,
 		MenuItems,
 	} from "@headlessui/vue";
+    import Notification from '@/components/loggedIn/Notification'
 	import { SearchIcon } from "@heroicons/vue/solid";
 	import { BellIcon, MenuIcon, XIcon } from "@heroicons/vue/outline";
 	export default {
@@ -216,6 +218,7 @@
 			MenuIcon,
 			SearchIcon,
 			XIcon,
+            Notification,
 		},
 		methods: {
 			signOut() {

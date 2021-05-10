@@ -44,6 +44,11 @@ const routes = [
                         name: 'Billing',
                         component: () => import('../components/loggedIn/Billing.vue')
                     },
+                    {
+                        path: 'notifications',
+                        name: 'Notifications',
+                        component: () => import('../components/loggedIn/ListNotifications.vue')
+                    },
                 ]
             },
         ]

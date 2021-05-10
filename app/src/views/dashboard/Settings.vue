@@ -65,7 +65,7 @@
 					{ name: "Password", to: "#", icon: KeyIcon, current: false },
 					{
 						name: "Notifications",
-						to: "#",
+						to: "/settings/Notifications",
 						icon: BellIcon,
 						current: false,
 					},

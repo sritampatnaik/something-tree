@@ -230,6 +230,9 @@
 				return this.$route.name;
 			},
 		},
+        created() {
+            this.$store.dispatch('profile/getProfile')
+        }
 	};
 </script>
 

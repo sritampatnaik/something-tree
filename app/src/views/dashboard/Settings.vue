@@ -65,7 +65,7 @@
 					{ name: "Password", to: "#", icon: KeyIcon, current: false },
 					{
 						name: "Notifications",
-						to: "/settings/Notifications",
+						to: "/settings/notifications",
 						icon: BellIcon,
 						current: false,
 					},
@@ -93,12 +93,26 @@
 				});
 			},
 		},
+		computed: {
+			route() {
+				return this.$route.path;
+			},
+		},
 		created() {
 			this.subNavigation = this.subNavigation.map((doc) => {
-				return doc.to === this.$route.path
+				return doc.to === String(this.route).toLowerCase()
 					? { ...doc, current: true }
 					: { ...doc, current: false };
 			});
+		},
+		watch: {
+			route() {
+				this.subNavigation = this.subNavigation.map((doc) => {
+					return doc.to === String(this.route).toLowerCase()
+						? { ...doc, current: true }
+						: { ...doc, current: false };
+				});
+			},
 		},
 	};
 </script>

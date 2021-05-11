@@ -36,12 +36,13 @@ const getters = {
 }
 
 const actions = {
-    notificationsListener({ rootState, commit }) {
+    notificationsListener({ rootState, commit, dispatch }) {
         db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').where('lastUpdateTime', '==', null).onSnapshot(snapshot => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
                     console.log("--from-firebase", change.doc.data());
                     commit('ON_NOTIFICATION_CHANGE', { ...change.doc.data(), docId: change.doc.id })
+                    dispatch('getProfile')
                 }
                 // if (change.type === "modified") {
                 //     console.log("Modified city: ", change.doc.data());

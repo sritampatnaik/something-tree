@@ -36,7 +36,10 @@
 							>
 								<span class="flex justify-between">
 									<span class="text-sm font-medium text-gray-900">NOTIFICATIONS</span>
-									<span @click="markAsAllReadClick" class="block text-sm text-gray-500 cursor-pointer">Mark All Read</span>
+									<span
+										@click="markAsAllReadClick"
+										class="block text-sm text-gray-500 cursor-pointer"
+									>Mark All Read</span>
 								</span>
 							</div>
 						</div>
@@ -44,11 +47,16 @@
 							<div
 								v-for="(item, key) in activeNotifications"
 								:key="key"
-                                @click="notificationOnClick(item)"
+								@click="notificationOnClick(item)"
 								class="grid grid-cols-8 flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-indigo-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 cursor-pointer"
 							>
 								<div class="ml-4 col-span-7">
-									<p class="text-sm font-medium text-gray-900">{{ item.title }}</p>
+									<p class="text-sm font-medium text-gray-900">
+										{{ item.title }} {{ ' ' }}
+										<span
+											class="font-small text-gray-400"
+										>&bull; {{ millisecondsToStr(item.createTime.toDate()) }}</span>
+									</p>
 									<p class="text-sm text-gray-500">{{ item.content }}</p>
 								</div>
 								<div
@@ -61,7 +69,7 @@
 						</div>
 						<div class="p-4 bg-gray-50">
 							<RouterLink
-								to='/settings/notifications'
+								to="/settings/notifications"
 								class="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
 							>
 								<i class="block text-sm text-gray-500">See Notification History</i>
@@ -96,16 +104,51 @@
 		methods: {
 			setNotificationStatus(isOpen) {
 				console.log("working", isOpen);
-                if (!isOpen) {
-                    this.$store.dispatch('profile/setNotificationStatusAsRead')
-                }
+				if (!isOpen) {
+					this.$store.dispatch("profile/setNotificationStatusAsRead");
+				}
 			},
-            notificationOnClick(notification) {
-                this.$store.dispatch('profile/setNotificationLastUpdateTime', notification)
-            },
-            markAsAllReadClick() {
-                this.$store.dispatch('profile/markAllNotificationsAsRead')
-            }
+			notificationOnClick(notification) {
+				this.$store.dispatch(
+					"profile/setNotificationLastUpdateTime",
+					notification
+				);
+			},
+			markAsAllReadClick() {
+				this.$store.dispatch("profile/markAllNotificationsAsRead");
+			},
+			millisecondsToStr(milliseconds) {
+				// function numberEnding(number) {
+				// 	return number > 1 ? "s" : "";
+				// }
+				const millies = new Date() - milliseconds;
+				let temp = Math.floor(millies / 1000);
+				const months = Math.floor(temp / 2592000);
+				if (months) {
+					return months + "mo";
+				}
+				const weeks = Math.floor((temp %= 2592000) / 604800);
+				if (weeks) {
+					return weeks + "w";
+				}
+				const days = Math.floor((temp %= 604800) / 86400);
+				if (days) {
+					return days + "d";
+				}
+				const hours = Math.floor((temp %= 86400) / 3600);
+				if (hours) {
+					return hours + "h";
+				}
+				const minutes = Math.floor((temp %= 3600) / 60);
+				if (minutes) {
+					return minutes + "m";
+				}
+				const seconds = temp % 60;
+				if (seconds) {
+					return seconds + "sec";
+				}
+				return "Just Now";
+			},
 		},
 	};
 </script>

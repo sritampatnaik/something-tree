@@ -60,10 +60,10 @@
 									<p class="text-sm text-gray-500">{{ item.content }}</p>
 								</div>
 								<div
-									v-if="!item.lastUpdatetime"
+									v-if="item.lastUpdateTime == null"
 									class="grid-end flex items-center justify-center flex-shrink-0 text-white"
 								>
-									<span class="h-2 w-2 rounded-full ring-2 ring-white bg-red-400" />
+									<span class="h-2 w-2 rounded-full ring-2 ring-white bg-red-400 ring-transparent" />
 								</div>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 			},
 			notificationOnClick(notification) {
 				this.$store.dispatch(
-					"profile/setNotificationLastUpdateTime",
+					"profile/setNotificationReadStatus",
 					notification
 				);
 			},

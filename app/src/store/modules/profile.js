@@ -11,9 +11,9 @@ const mutations = {
     ON_NOTIFICATION_CHANGE(state, payload) {
         state.activeNotifications = [...state.activeNotifications.filter(doc => doc.id != payload.id), payload].sort((a, b) => b.createTime.toDate() - a.createTime.toDate())
     },
-    REMOVE_NOTIFICATION(state, payload) {
-        state.activeNotifications = [...state.activeNotifications.filter(doc => doc.id != payload.id)].sort((a, b) => b.createTime.toDate() - a.createTime.toDate())
-    },
+    // REMOVE_NOTIFICATION(state, payload) {
+    //     state.activeNotifications = [...state.activeNotifications.filter(doc => doc.id != payload.id)].sort((a, b) => b.createTime.toDate() - a.createTime.toDate())
+    // },
     RESET_NOTIFICATION(state) {
         state.activeNotifications = []
     },
@@ -37,17 +37,17 @@ const getters = {
 
 const actions = {
     notificationsListener({ rootState, commit, dispatch }) {
-        db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').where('lastUpdateTime', '==', null).onSnapshot(snapshot => {
+        db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').orderBy('createTime', 'desc').limit(10).onSnapshot(snapshot => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
-                    console.log("--from-firebase", change.doc.data());
+                    console.log("--from-firebase-added", change.doc.data());
                     commit('ON_NOTIFICATION_CHANGE', { ...change.doc.data(), docId: change.doc.id })
                     dispatch('getProfile')
                 }
-                // if (change.type === "modified") {
-                //     console.log("Modified city: ", change.doc.data());
-                //     commit('ON_NOTIFICATION_CHANGE', { ...change.doc.data(), docId: change.doc.id })
-                // }
+                if (change.type === "modified") {
+                    console.log("--from-firebase-modified", change.doc.data());
+                    commit('ON_NOTIFICATION_CHANGE', { ...change.doc.data(), docId: change.doc.id })
+                }
             });
         })
     },
@@ -68,18 +68,26 @@ const actions = {
             dispatch('getProfile')
         }
     },
-    setNotificationLastUpdateTime({ rootState, commit }, payload) {
-        commit('REMOVE_NOTIFICATION', payload)
-        db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').doc(payload.docId).update({
-            lastUpdateTime: dbModule.FieldValue.serverTimestamp()
-        })
+    setNotificationReadStatus({ rootState }, payload) {
+        // commit('REMOVE_NOTIFICATION', payload)
+        if (payload.status === 'unseen') {
+            db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').doc(payload.docId).update({
+                lastUpdateTime: dbModule.FieldValue.serverTimestamp(),
+                status: 'clicked'
+            })
+        }
     },
     async markAllNotificationsAsRead({ commit, state, rootState }) {
         if (state.activeNotifications.length > 0) {
             const batch = db.batch()
             state.activeNotifications.forEach(doc => {
-                const ref = db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').doc(doc.docId)
-                batch.update(ref, { lastUpdateTime: dbModule.FieldValue.serverTimestamp() })
+                if (doc.status === 'unseen') {
+                    const ref = db.collection('profiles').doc(rootState.auth.authUser.uid).collection('notification').doc(doc.docId)
+                    batch.update(ref, {
+                        lastUpdateTime: dbModule.FieldValue.serverTimestamp(),
+                        status: 'clicked'
+                    })
+                }
             })
             await batch.commit()
             commit('RESET_NOTIFICATION')

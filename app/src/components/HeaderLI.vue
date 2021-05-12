@@ -10,13 +10,7 @@
 					class="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25"
 				>
 					<div class="px-2 flex items-center lg:px-0">
-						<div class="flex-shrink-0">
-							<img
-								class="block h-8 w-8"
-								src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
-								alt="Workflow"
-							/>
-						</div>
+						<Logo />
 						<div class="hidden lg:block lg:ml-10">
 							<div class="flex space-x-4">
 								<!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
@@ -64,8 +58,8 @@
 							>
 								<span class="sr-only">View notifications</span>
 								<BellIcon class="h-6 w-6" aria-hidden="true" />
-							</button> -->
-                            <Notification />
+							</button>-->
+							<Notification />
 
 							<!-- Profile dropdown -->
 							<Menu as="div" class="ml-3 relative flex-shrink-0">
@@ -180,9 +174,10 @@
 		MenuItem,
 		MenuItems,
 	} from "@headlessui/vue";
-    import Notification from '@/components/loggedIn/Notification'
+	import Notification from "@/components/loggedIn/Notification";
 	import { SearchIcon } from "@heroicons/vue/solid";
 	import { BellIcon, MenuIcon, XIcon } from "@heroicons/vue/outline";
+    import Logo from '@/components/Logo'
 	export default {
 		data() {
 			return {
@@ -218,7 +213,8 @@
 			MenuIcon,
 			SearchIcon,
 			XIcon,
-            Notification,
+			Notification,
+            Logo,
 		},
 		methods: {
 			signOut() {
@@ -230,9 +226,9 @@
 				return this.$route.name;
 			},
 		},
-        created() {
-            this.$store.dispatch('profile/getProfile')
-        }
+		created() {
+			this.$store.dispatch("profile/getProfile");
+		},
 	};
 </script>
 

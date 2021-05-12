@@ -93,8 +93,6 @@
 </template>
 
 <script>
-	// import { computed, ref } from "vue";
-	// import { useStore } from "vuex";
 	export default {
 		data() {
 			return {
@@ -134,44 +132,6 @@
 				if (this.currentPage > 1) this.currentPage--;
 			},
 		},
-		// setup() {
-		// 	const store = useStore();
-
-		// 	store.dispatch("profile/getAllNotification");
-		// 	const isAllNotificationsLoading = computed(() => {
-		// 		return store.state.profile.isAllNotificationsLoading;
-		// 	});
-		// 	const allNotifications = computed(() => {
-		// 		return store.state.profile.allNotifications;
-		// 	});
-		// 	const paginatedArray = computed(() => {
-		// 		return allNotifications.value.slice(
-		// 			(currentPage.value - 1) * perPage.value,
-		// 			(currentPage.value - 1) * perPage.value + perPage.value
-		// 		);
-		// 	});
-		// 	const currentPage = ref(1);
-		// 	const perPage = ref(2);
-		// 	const pageUp = () => {
-		// 		if (
-		// 			currentPage.value <
-		// 			allNotifications.value.length / perPage.value
-		// 		)
-		// 			currentPage.value++;
-		// 	};
-		// 	const pageDown = () => {
-		// 		if (currentPage.value > 1) currentPage.value--;
-		// 	};
-		// 	return {
-		// 		isAllNotificationsLoading,
-		// 		allNotifications,
-		// 		currentPage,
-		// 		perPage,
-		// 		pageUp,
-		// 		pageDown,
-		// 		paginatedArray,
-		// 	};
-		// },
 	};
 </script>
 

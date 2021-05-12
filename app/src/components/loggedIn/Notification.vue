@@ -86,12 +86,14 @@
 	import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 	import { BellIcon } from "@heroicons/vue/outline";
 	import { mapGetters } from "vuex";
+    import { millisecondsToStr } from '@/utility/helperFunctions'
 
 	export default {
 		components: { Popover, PopoverButton, PopoverPanel, BellIcon },
 
 		created() {
 			this.$store.dispatch("profile/notificationsListener");
+            this.millisecondsToStr = millisecondsToStr
 		},
 		computed: {
 			...mapGetters({
@@ -117,38 +119,35 @@
 			markAsAllReadClick() {
 				this.$store.dispatch("profile/markAllNotificationsAsRead");
 			},
-			millisecondsToStr(milliseconds) {
-				// function numberEnding(number) {
-				// 	return number > 1 ? "s" : "";
-				// }
-				const millies = new Date() - milliseconds;
-				let temp = Math.floor(millies / 1000);
-				const months = Math.floor(temp / 2592000);
-				if (months) {
-					return months + "mo";
-				}
-				const weeks = Math.floor((temp %= 2592000) / 604800);
-				if (weeks) {
-					return weeks + "w";
-				}
-				const days = Math.floor((temp %= 604800) / 86400);
-				if (days) {
-					return days + "d";
-				}
-				const hours = Math.floor((temp %= 86400) / 3600);
-				if (hours) {
-					return hours + "h";
-				}
-				const minutes = Math.floor((temp %= 3600) / 60);
-				if (minutes) {
-					return minutes + "m";
-				}
-				const seconds = temp % 60;
-				if (seconds) {
-					return seconds + "sec";
-				}
-				return "Just Now";
-			},
+			// millisecondsToStr(milliseconds) {
+			// 	const millies = new Date() - milliseconds;
+			// 	let temp = Math.floor(millies / 1000);
+			// 	const months = Math.floor(temp / 2592000);
+			// 	if (months) {
+			// 		return months + "mo";
+			// 	}
+			// 	const weeks = Math.floor((temp %= 2592000) / 604800);
+			// 	if (weeks) {
+			// 		return weeks + "w";
+			// 	}
+			// 	const days = Math.floor((temp %= 604800) / 86400);
+			// 	if (days) {
+			// 		return days + "d";
+			// 	}
+			// 	const hours = Math.floor((temp %= 86400) / 3600);
+			// 	if (hours) {
+			// 		return hours + "h";
+			// 	}
+			// 	const minutes = Math.floor((temp %= 3600) / 60);
+			// 	if (minutes) {
+			// 		return minutes + "m";
+			// 	}
+			// 	const seconds = temp % 60;
+			// 	if (seconds) {
+			// 		return seconds + "sec";
+			// 	}
+			// 	return "Just Now";
+			// },
 		},
 	};
 </script>

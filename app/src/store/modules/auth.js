@@ -26,7 +26,7 @@ const mutations = {
             state.authenticated = false
         }
     },
-    SET_CUSTOME_ROLES(state, payload) {
+    SET_CUSTOM_ROLES(state, payload) {
         state.authUser.claims = payload;
     },
     SET_ERROR: (state, message) => { state.errorMessage = message }
@@ -43,7 +43,7 @@ const actions = {
     async getCustomClaimRole({ commit }) {
         await auth.currentUser.getIdToken(true);
         const decodedToken = await auth.currentUser.getIdTokenResult();
-        commit('SET_CUSTOME_ROLES', decodedToken.claims.stripeRole)
+        commit('SET_CUSTOM_ROLES', decodedToken.claims.stripeRole)
     },
 
     async signIn({ commit, dispatch }, payload) {

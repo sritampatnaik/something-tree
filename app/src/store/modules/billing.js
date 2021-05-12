@@ -68,8 +68,8 @@ const actions = {
                 // tax_rates: TAX_RATES,
                 allow_promotion_codes: true,
                 line_items: [payload.selectedPrice],
-                success_url: `${window.location.origin}/#/settings/billing`,
-                cancel_url: `${window.location.origin}/#/settings/billing`,
+                success_url: `${process.env.VUE_APP_DOMAIN_URL}/#/settings/billing`,
+                cancel_url: `${process.env.VUE_APP_DOMAIN_URL}/#/settings/billing`,
                 metadata: {
                     key: 'value',
                 },
@@ -93,7 +93,7 @@ const actions = {
         const functionRef = app
             .functions('asia-southeast2')
             .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink');
-        const { data } = await functionRef({ returnUrl: `${window.location.origin}/#/settings/billing` });
+        const { data } = await functionRef({ returnUrl: `${process.env.VUE_APP_DOMAIN_URL}/#/settings/billing` });
         window.location.assign(data.url);
     },
     async getBillingHistory({ rootState, commit }) {

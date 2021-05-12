@@ -80,6 +80,9 @@
 				return this.$store.state.billing.billingHistory;
 			},
 		},
+		created() {
+			this.$store.dispatch("billing/getBillingHistory");
+		},
 	};
 </script>
 

@@ -3,6 +3,7 @@
 		<Popover v-slot="{ open }" class="relative">
 			<PopoverButton
 				:class="open ? '' : 'text-opacity-90'"
+                ref="notification-btn"
 				class="bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white"
 				@click="setNotificationStatus(open)"
 			>
@@ -14,6 +15,7 @@
 				/>
 				<span
 					v-if="status === 'unseen'"
+                    id="notification-red-dot"
 					class="absolute top-1 right-1 block h-2 w-2 rounded-full ring-2 ring-transparent bg-red-400"
 				/>
 			</PopoverButton>

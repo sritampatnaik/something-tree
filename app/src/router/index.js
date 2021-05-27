@@ -11,52 +11,8 @@ const routes = [
     },
     {
         path: '/',
-        name: 'Login',
-        component: () => import('../views/Login.vue')
-    },
-    {
-        path: '/dashboard',
-        component: () => import('../views/dashboard/Header.vue'),
-        children: [
-            {
-                path: 'team',
-                name: 'Team',
-                component: () => import('../views/dashboard/Team.vue')
-            },
-            {
-                path: '',
-                name: 'Dashboard',
-                component: () => import('../views/dashboard/Dashboard.vue')
-            },
-        ]
-    },
-    {
-        path: '/settings',
-        component: () => import('../views/dashboard/Header.vue'),
-        children: [
-            {
-                path: '',
-                name: 'Settings',
-                component: () => import('../views/dashboard/Settings.vue'),
-                children: [
-                    {
-                        path: 'billing',
-                        name: 'Billing',
-                        component: () => import('../components/loggedIn/Billing.vue')
-                    },
-                    {
-                        path: 'notifications',
-                        name: 'Notifications',
-                        component: () => import('../components/loggedIn/ListNotifications.vue')
-                    },
-                ]
-            },
-        ]
-    },
-    {
-        path: '/resetpassword',
-        name: 'ResetPassword',
-        component: () => import('../views/ResetPassword.vue')
+        name: 'Index',
+        component: () => import('../views/Index.vue')
     }
 ]
 

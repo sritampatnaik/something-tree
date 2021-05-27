@@ -4,14 +4,7 @@ import router from './router'
 import store from './store'
 import './assets/tailwind.css'
 
-let app;
-
-
-auth.onAuthStateChanged(user => {
-    if (!app) {
-        app = createApp(App);
-        app.use(store)
-        app.use(router)
-        app.mount('#app')
-    }
-});
+let app = createApp(App);
+app.use(store)
+app.use(router)
+app.mount('#app')

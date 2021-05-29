@@ -118,10 +118,9 @@
             <div class="relative">
                 <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <LandingCard/>
-                    <div ref="container">
-
-                    </div>
+                        <div ref="container">
+                                <LandingCard/>
+                        </div>
                 </div>
             </div>
 
@@ -219,6 +218,10 @@ export default {
     },
     methods : {
         showQuestion () {
+            let questionViewContainer = this.$refs.container;
+            if (questionViewContainer.hasChildNodes()) {
+                questionViewContainer.innerHTML = "";
+            }
             let buttonView = defineComponent({
                 extends: QuestionCard, data() {
                     return {
@@ -226,10 +229,7 @@ export default {
                     }
                 }
             })
-
-            const div = document.createElement('div');
-            this.$refs.container.appendChild(div);
-            createApp(buttonView ).mount(div)
+            createApp(buttonView).mount(questionViewContainer)
         }
     }
 }

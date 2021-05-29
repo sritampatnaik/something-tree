@@ -1,5 +1,5 @@
 {
-    "name": "saas-app-starter-kit",
+    "name": "something-tree",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -11,12 +11,10 @@
     "dependencies": {
         "@headlessui/vue": "^1.1.0",
         "@heroicons/vue": "^1.0.1",
-        "@stripe/stripe-js": "^1.14.0",
         "@tailwindcss/forms": "^0.3.2",
         "@tailwindcss/postcss7-compat": "^2.0.2",
         "autoprefixer": "^9",
         "core-js": "^3.6.5",
-        "firebase": "^8.4.2",
         "postcss": "^7",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
         "vue": "^3.0.0",

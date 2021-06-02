@@ -1,9 +1,9 @@
 import { createStore, createLogger } from 'vuex'
-import main from '@/store/modules/main'
+import quiz from '@/store/modules/quiz'
 
 export default createStore({
     modules: {
-        main
+        quiz
     },
     plugins: [createLogger()]
 })

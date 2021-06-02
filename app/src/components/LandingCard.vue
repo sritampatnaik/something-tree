@@ -28,7 +28,7 @@
 export default {
     methods : {
         startQuiz () {
-            this.$store.dispatch("main/startQuiz")
+            this.$store.dispatch("quiz/startQuiz")
         }
     }
 }

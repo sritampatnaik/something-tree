@@ -25,16 +25,18 @@ import store from '../store'
 
 export default {
     name : 'QuestionCard',
-    data() {
-        return {
-            question : '',
-            options : null
+    computed: {
+        question () {
+            return store.state.quiz.currQuestion
+        },
+        options () {
+            return store.state.quiz.currOptions
         }
     },
     methods : {
         submitAnswer (payload) {
             console.log(payload)
-            store.dispatch("main/submitAnswer", payload)
+            store.dispatch("quiz/submitAnswer", payload)
         }
     }
 }

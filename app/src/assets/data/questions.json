@@ -1,0 +1,875 @@
+[
+    {
+        "category": {
+        "title": "Features and Data",
+        "questions": [
+            {
+            "question": {
+                "text": "Do you have a schema that captures your feature expectations",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Do you monitor compliance to this schema?",
+                    "options": [
+                        {
+                        "text": "No",
+                        "result": {
+                            "score": 0,
+                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                        }
+                        },
+                        {
+                        "text": "Yes, manually",
+                        "result": {
+                            "score": 0.5,
+                            "text": "<p>Automation will reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                        }
+                        },
+                        {
+                        "text": "Yes, automatically",
+                        "result": {
+                            "score": 1,
+                            "text": "Great job 👍"
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you periodically check that each feature is necessary for your model accuracy?",
+                "options": [
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "Consider automating this via a feature selection pipeline, or experiments to reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a>"
+                    }
+                },
+                {
+                    "text": "Yes, automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "Good job!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Each additional feature can add high engineering and compute costs. Try checking the following to see if a marginal feature is adding value:></p><ul><li>Check the pairwise correlation of features to identify any pairs that move together (and add no information)</li><li>Train a model with all features except 1 (for each feature) and measure how well it&rsquo;s doing</li><li>Train a model including only 1 feature</li></ul>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you know how costly each of your features are?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Do you have a score kept up to date automatically?",
+                    "options": [
+                        {
+                        "text": "Yes",
+                        "result": {
+                            "score": 1,
+                            "text": "Nice! Remember: your features can be costly computationally (compute, network, disk) to build and serve, and there may be engineering and operational costs to maintain the feature."
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "score": 0.5,
+                            "text": "Building out a single score which is kept up to date can help you to automate e.g feature selection with costs in mind. Remember: your features can be costly computationally (compute, network, disk) to build and serve, and there may be engineering and operational costs to maintain the feature."
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>To get an idea of this, use your cloud service provider (or ask your administrators) to measure compute, network, and disk costs for 1) storing your features and 2) keeping them fresh. Consider engineering costs of maintenance and fixing instabilities, and the downstream costs of that feature due to dependencies. Having an idea of this cost will help you make tradeoffs, e.g. in feature selection, which take cost into account</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Are you in an industry with specific regulatory or business requirements for features?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Do you audit your features to comply with these?",
+                    "options": [
+                        {
+                        "text": "Yes, automatically",
+                        "result": {
+                            "score": 1,
+                            "text": "Great!"
+                        }
+                        },
+                        {
+                        "text": "Yes, manually",
+                        "result": {
+                            "score": 0.5,
+                            "text": "Manual auditing is time and manpower heavy and may be incomplete, exposing you to reputational and regulatory risks. It also scales linearly with new projects and data, while an automated system can be used. Do consider automating auditing."
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "score": 0,
+                            "text": "Consider setting up audit logs to comply with these requirements. Doing this will mitigate reputational and regulatory risk."
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 1,
+                    "text": "Ok, let's proceed then"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Is access to features limited to only those who need it for their job?",
+                "options": [
+                {
+                    "text": "Yes, and enforced automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice job!"
+                    }
+                },
+                {
+                    "text": "Yes, mandated by employee policy",
+                    "result": {
+                    "score": 0.5,
+                    "text": "<p>Consider implementing software based access control. The state of the art is <a href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>. This increases your safeguards from unaware or malicious insiders who do not need access to private data.</p>"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Privacy is very important to keep in mind when doing ML, especially with sensitive data sets. Consider implementing software based access control. The state of the art is <a href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you know how much time it takes for a single engineer to validate and add a new feature, from idea to production?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "About how long does it take?",
+                    "options": [
+                        {
+                        "text": "Days or weeks",
+                        "result": {
+                            "score": 1,
+                            "text": "Awesome! Do make sure that features are well tested and validated before rolling it out"
+                        }
+                        },
+                        {
+                        "text": "1-2 Months",
+                        "result": {
+                            "score": 1,
+                            "text": "This is pretty good! Good work"
+                        }
+                        },
+                        {
+                        "text": "More than a quarter",
+                        "result": {
+                            "score": 0.5,
+                            "text": "Try to reduce bottlenecks and operational tasks in the process to get this down to 1-2 months. 1 way to reduce this can be to set up robust experimentation, canarying and rollback processes to reduce the risk of a bad production build."
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider measuring this for the next few model features to get an idea of the technical ease of evolving the model. Production data and behavior is likely to change and the ability to be agile on features can be invaluable in keeping the model relevant."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you write unit tests for feature code?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "text": "Great job!",
+                    "score": 1
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Bugs in features may be impossible to detect later in the flow, especially if this affects test, training and validation data, and can have significant downstream effects. Unit tests will help catch such issues."
+                    }
+                }
+                ]
+            }
+            }
+        ],
+        "aggregation": "sum"
+        }
+    },
+    {
+        "category": {
+        "title": "Model development",
+        "questions": [
+            {
+            "question": {
+                "text": "Do you store your model in a version control repo?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Does all of your model code go through a review and integration process using these or other tools?",
+                    "options": [
+                        {
+                        "text": "Yes",
+                        "result": {
+                            "text": "Great!",
+                            "score": 1
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "text": "<p>Code review will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>",
+                            "score": 0.5
+                        }                    
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text":"No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Code review and version control will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Have you measured how the metric your model is optimized for (e.g loss function) correlates with business impact metrics (e.g NPS, clickthrough rate)",
+                "options": [
+                {
+                    "text": "Yes, automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "Awesome!"
+                    }
+                },
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "<p>Consider setting up experiment tracking tools that are aware of business metrics to ensure business goals are met by your models. Some MLOps tools which focus on experiment tracking are <a href=\"https://wandb.ai/site\">Weights and Biases</a> and <a href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>It is a good idea to measure, and ensure a positive correlation, between improving the model on its quality metrics, and metrics on business outcomes. One way of doing this is by running experiments using intentionally worse (or previous versions of) models. Some MLOps tools which focus on experiment tracking are <a href=\"https://wandb.ai/site\">Weights and Biases</a> and <a href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Have you tuned your hyperparameters?",
+                "options": [
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    }
+                },
+                {
+                    "text": "Yes, automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>There is huge room for improving models by tuning hyperparameters like learning rate, number of layers, and regularization coefficients. Your time will likely be well spent on tuning these. See this<a href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you retrain your model with fresh data over time?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Do you know how stale models affect model quality?",
+                    "options": [
+                        {
+                        "text": "Yes",
+                        "result": {
+                            "text": "Great! This will help define an appropriate retraining schedule",
+                            "score": 1
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "text": "Consider running experiments when retraining (e.g by serving some subset of requests with an older model) to measure the model's degradation with time. Knowing how the model degrades over weeks and months can help define an ideal retraining schedule, balancing computational costs with model quality.",
+                            "score": 0
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Production behavior of users and data is always changing and evolving in most domains. Consider periodically retraining with fresher data to observe its impact on quality."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have a simple baseline model to compare your production model with?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Great! Keep this baseline up to date with fresh data and it becomes a useful way to measure tradeoffs of model complexity."
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider building a baseline (e.g. a linear model) to measure the tradeoff in engineering, maintenance, and auditability of a more complex model."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you measure model quality metrics along specific slices of interest?",
+                "options": [
+                {
+                    "text": "Yes, automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "<p>Nice job! Related to this topic, you might find Snorkel AI's <a href\"https://www.snorkel.org/blog/slicing\">post</a> on slice-based learning useful.</p>"
+                    }
+                },
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments."
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Top-line quality metrics may not tell the full story. Specific slices of inputs might be disproportionately affected. If these slices are important for regulatory, fairness, or business reasons, they should be evaluated specifically."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you test the model for fairness and inclusion?",
+                "options": [
+                {
+                    "text": "Yes, automatically",
+                    "result": {
+                    "score": 1,
+                    "text": "<p>Great job! ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    }
+                },
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "<p>Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments. ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Especially if you are serving many different kinds of users, fairness and inclusion is important to get right. ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful to figure out a process to test your model. Also try to ensure your training data is representative of the variety of the population the model is intended to serve.</p>"
+                    }
+                }
+                ]
+            }
+            }
+        ],
+        "aggregation": "sum"
+        }
+    },
+    {
+        "category": {
+        "title": "ML Infrastructure",
+        "questions": [
+            {
+            "question": {
+                "text": "Do you have nondeterministic elements in your training setup?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Have you worked to minimize nondeterminism?",
+                    "options": [
+                        {
+                        "text": "Yes",
+                        "result": {
+                            "score": 1,
+                            "text": "Nice work! This helps make training as reproducible as possible, making it easier to debug and audit the trained model."
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "score": 0,
+                            "text": "Reducing nondeterminism can help make training more reproducible. This will make it easier to debug and audit the trained model. Options to consider are seeding random number generators, fixing initialization orders and explicitly reasoning about multithreaded or distributed training steps."
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "text": "Ok, let's proceed then",
+                    "score": 1
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have unit tests for model specification code?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice! Let us know if you have tool or process recommendations you'd like to share!"
+                    }
+                },
+                {
+                    "options": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Unit tests for models are tricky, especially if a novel approach is implemented. Some simple tests which are useful are 1) running a single step of gradient descent and verifying expectations, and 2) verifying restoring from a training checkpoint. Having these ensures issues are caught before a time and resource consuming training run."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have integration tests for your ML pipeline?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "text": "Great job! Let us know if you have tool or process recommendations to share!",
+                    "score": 1
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider writing integration tests to exercise the full ML pipeline. These can be useful to spot errors between team boundaries. Such tests can be set up to run continuously, as well as with new releases."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have a way to validate your model, e.g with an unseen validation set, before promoting models to production?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice! Take care that this set has not been used elsewhere in training or tuning the model."
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Setting up a validation step can guard against 2 kinds of errors:</p><ul><li>Slow degradation of quality, identifiable by quality metrics on a validation set</li><li>Sudden drops in a new version, identifiable by comparing predictions with a previous model</li></ul>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Can you step through the model with a single example to see its operation?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Awesome! Let us know if you know tools to do this which you'd like to share"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider investing in infrastructure to do this. Stepping through with a single example can be a very useful debugging strategy to track down unexpected behavior and audit the model."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have a way to canary a new model version when rolling it out?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "question": {
+                    "text": "Does this canary evaluate both performance and quality metrics?",
+                    "options": [
+                        {
+                        "text": "Yes",
+                        "result": {
+                            "score": 1,
+                            "text": "Awesome!"
+                        }
+                        },
+                        {
+                        "text": "No",
+                        "result": {
+                            "score": 0.5,
+                            "text": "Both performance metrics (latency, compute costs) and model quality metrics (e.g prediction distributions) should be measured against production data, since both these can regress and affect users of the model."
+                        }
+                        }
+                    ]
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Production data can be quite different from training and validation data. Being able to roll out a model to a small percentage of traffic first can reduce the risk of regressions."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Can you safely rollback models?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "text": "Nice! Remember that there are likely code and data dependencies that need to be considered when rolling back.",
+                    "score": 1
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "text": "Consider building support for this, recalling that code and data dependencies that need to be considered when rolling back. Rolling back to a known good state is a great tool to have when mitigating an incident of poor performance.",
+                    "score": 0
+                    }
+                }
+                ]
+            }
+            }
+        ],
+        "aggregation": "sum"
+        }
+    },
+    {
+        "category": {
+        "title": "Monitoring",
+        "questions": [
+            {
+            "question": {
+                "text": "Do you keep track of your dependencies for changes in behavior?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Great!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider having explicit SLAs on how changes in behavior of dependencies are communicated. If possible, depend on fixed versions and not on black-box services to minimize surprises."
+                    }
+                },
+                {
+                    "text": "We don't have external dependencies",
+                    "result": {
+                    "score": 1,
+                    "text": "Ok, let's proceed then"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you monitor your serving input features against schema?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Great!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Shifts in how dependencies are calculated can have downstream effects on your model. Monitor them to be alerted of, and react early to, such changes. Alert thresholds and schema strictness will likely need to be tuned to reduce false positives, however such alerts can guard against silent changes "
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Is feature generation code shared between training and serving?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Sharing code minimizes chances of divergent logic leading to different feature behavior. This has standardized around the concept of feature stores, both in cloud ML platforms as well as open-source tools like <a href=\"https://github.com/feast-dev/feast\">Feast</a> and enterprise focused tools like <a href=\"https://www.tecton.ai/\">Tecton</a>.</p>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have monitoring to compare feature data distributions between training and serving?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Nice!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider setting up monitoring to compare distribution statistics (e.g median, quartiles) between training and serving data.This will reduce the risk of different feature representations - for both scenarios where training data is outdated as well as where training and serving input is powered by code paths."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have monitoring for whether the model is too stale?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "text": "Very good!",
+                    "score": 1
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "If you have analysed the effect of model staleness (as discussed in the Model section), use that as a threshold to monitor that the model is refreshed correctly in time. This will guard against errors like failed pipeline runs not renewing the model."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have monitoring for 0s, NaNs, infinities, or other numerically unlikely values?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Awesome!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Explicitly monitoring for counts of this common source of error can help to detect erroneous behavior early, and save you a lot of debugging time."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have monitoring for performance metrics on the model (e.g latency, training speed, throughput, RAM usage)?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Good work!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Changes in performance can occur due to changes in data, model, features or underlying dependencies and infrastructure. Performance degradations will impact your user’s ability to use your online service appropriately, and so should be kept track of."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have this monitoring by specific important slices of data?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Great job!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "Consider setting this up - with complex models, specifics of the data can affect computational performance. This will ensure important degradations are caught early."
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have monitoring for prediction quality on served data?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Awesome!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>Setting this up will be very helpful to catch degradation in model quality (due to changes in data, features, model or compute infra) ins real time. Monitoring quality can be difficult to do, especially if getting ground truth labels is slow or infeasible. Some workarounds are:</p><ul><li>Monitor statistical bias in prediction outputs against expectations. This will alert you to systematic shifts in predicted outputs.</li><li>Feedback and monitor real-time signals indicative of quality (e.g positive - clicks on recommendations, negative - dismissal)</li><li>Have human raters manually annotate real-time serving inputs and hold out a portion to validate the serving model.</li></ul>"
+                    }
+                }
+                ]
+            }
+            },
+            {
+            "question": {
+                "text": "Do you have this monitoring by specific important slices of data?",
+                "options": [
+                {
+                    "text": "Yes",
+                    "result": {
+                    "score": 1,
+                    "text": "Amazing!"
+                    }
+                },
+                {
+                    "text": "No",
+                    "result": {
+                    "score": 0,
+                    "text": "<p>As we discussed earlier for training, model quality can be radically different for separate slices of data. Monitoring slices which are meaningful and important will help find anomalous behavior which is too subtle to trigger overall alerts but has a significant subset on a particular subset of inputs. In the absence of ground truth labels, workarounds are:</p><ul><li>Monitor statistical bias in prediction outputs against expectations. This will alert you to systematic shifts in predicted outputs.</li><li>Feedback and monitor real-time signals indicative of quality (e.g positive - clicks on recommendations, negative - dismissal)</li><li>Have human raters manually annotate real-time serving inputs and hold out a portion to validate the serving model.</li></ul>"
+                    }
+                }
+                ]
+            }
+            }
+        ],
+        "aggregation": "sum"
+        }
+    }
+]

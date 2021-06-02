@@ -16,45 +16,11 @@
                     <MenuIcon class="h-6 w-6" aria-hidden="true" />
                 </PopoverButton>
                 </div>
-                <PopoverGroup as="nav" class="hidden md:flex space-x-10">
-                <Popover class="relative" v-slot="{ open }">
-                    <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
-                    <span>Solutions</span>
-                    <ChevronDownIcon :class="[open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']" aria-hidden="true" />
-                    </PopoverButton>
-
-                    <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
-                    <PopoverPanel class="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2">
-                            <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                            <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white sm:h-12 sm:w-12">
-                                <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-base font-medium text-gray-900">
-                                {{ item.name }}
-                                </p>
-                                <p class="mt-1 text-sm text-gray-500">
-                                {{ item.description }}
-                                </p>
-                            </div>
-                            </a>
-                        </div>
-                        </div>
-                    </PopoverPanel>
-                    </transition>
-                </Popover>
-
-                <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                    {{ item.name }}
-                </a>
-                </PopoverGroup>
                 <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                 <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                     Sign in
                 </a>
-                <a href="#" @click="showQuestion" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
                     Sign up
                 </a>
                 </div>
@@ -75,25 +41,8 @@
                         </PopoverButton>
                         </div>
                     </div>
-                    <div class="mt-6">
-                        <nav class="grid grid-cols-1 gap-7">
-                        <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
-                            <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
-                            <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
-                            </div>
-                            <div class="ml-4 text-base font-medium text-gray-900">
-                            {{ item.name }}
-                            </div>
-                        </a>
-                        </nav>
-                    </div>
                     </div>
                     <div class="py-6 px-5">
-                    <div class="grid grid-cols-2 gap-4">
-                        <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        {{ item.name }}
-                        </a>
-                    </div>
                     <div class="mt-6">
                         <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
                         Sign up
@@ -115,40 +64,14 @@
         <main>
             <div>
             <!-- Hero card -->
-            <div class="relative">
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div ref="container">
-                                <LandingCard/>
-                        </div>
-                </div>
-            </div>
-
-            <!-- Logo cloud -->
-            <div class="bg-gray-100">
-                <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-                <p class="text-center text-sm font-semibold uppercase text-gray-500 tracking-wide">
-                    Trusted by over 5 very average small businesses
-                </p>
-                <div class="mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
-                    <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
-                    </div>
-                    <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg" alt="Mirage" />
-                    </div>
-                    <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg" alt="StaticKit" />
-                    </div>
-                    <div class="col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg" alt="Transistor" />
-                    </div>
-                    <div class="col-span-2 flex justify-center md:col-span-2 md:col-start-4 lg:col-span-1">
-                    <img class="h-12" src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg" alt="Workcation" />
+                <div class="relative">
+                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <div ref="container">
+                                    <LandingCard/>
+                            </div>
                     </div>
                 </div>
-                </div>
-            </div>
             </div>
 
             <!-- More main page content here... -->
@@ -157,67 +80,33 @@
 </template>
 
 <script>
-import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import LandingCard from "@/components/LandingCard";
 import QuestionCard from "@/components/QuestionCard";
+import questions from '../assets/data/questions.json';
 
 import {
-  AnnotationIcon,
-  ChatAlt2Icon,
-  InboxIcon,
   MenuIcon,
-  QuestionMarkCircleIcon,
   XIcon,
 } from '@heroicons/vue/outline'
-import { ChevronDownIcon } from '@heroicons/vue/solid'
 import {defineComponent,createApp} from 'vue'
-
-const solutions = [
-  {
-    name: 'Inbox',
-    description: 'Get a better understanding of where your traffic is coming from.',
-    href: '#',
-    icon: InboxIcon,
-  },
-  {
-    name: 'Messaging',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
-    icon: AnnotationIcon,
-  },
-  { name: 'Live Chat', description: "Your customers' data will be safe and secure.", href: '#', icon: ChatAlt2Icon },
-  {
-    name: 'Knowledge Base',
-    description: "Connect with third-party tools that you're already using.",
-    href: '#',
-    icon: QuestionMarkCircleIcon,
-  },
-]
-const navigation = [
-  { name: 'Pricing', href: '#' },
-  { name: 'Partners', href: '#' },
-  { name: 'Company', href: '#' },
-]
 
 export default {
     components: {
         Popover,
         PopoverButton,
-        PopoverGroup,
         PopoverPanel,
-        ChevronDownIcon,
         MenuIcon,
         XIcon,
         LandingCard
     },
-    setup() {
-    return {
-        solutions,
-        navigation,
-    }
+    computed: {
+        currQnNumber () {
+            return this.$store.state.main.currQnNumber
+        }
     },
-    methods : {
-        showQuestion () {
+    watch: {
+        async currQnNumber() {
             let questionViewContainer = this.$refs.container;
             if (questionViewContainer.hasChildNodes()) {
                 questionViewContainer.innerHTML = "";
@@ -225,12 +114,54 @@ export default {
             let buttonView = defineComponent({
                 extends: QuestionCard, data() {
                     return {
-                        type: "1111"
+                        question:  "What's your name?",
+                        optionLength : 2,
+                        options :  [
+                        {
+                            "text": "Yes",
+                            "question": {
+                            "text": "Do you monitor compliance to this schema?",
+                            "options": [
+                                {
+                                "text": "No",
+                                "result": {
+                                    "score": 0,
+                                    "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                                }
+                                },
+                                {
+                                "text": "Yes, manually",
+                                "result": {
+                                    "score": 0.5,
+                                    "text": "<p>Automation will reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                                }
+                                },
+                                {
+                                "text": "Yes, automatically",
+                                "result": {
+                                    "score": 1,
+                                    "text": "Great job 👍"
+                                }
+                                }
+                            ]
+                            }
+                        },
+                        {
+                            "text": "No",
+                            "result": {
+                            "score": 0,
+                            "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
+                            }
+                        }
+                        ]
                     }
                 }
             })
             createApp(buttonView).mount(questionViewContainer)
-        }
+        },
+    },
+    created() {
+        this.$store.commit("main/SET_QUESTIONS", questions);
     }
 }
 </script>

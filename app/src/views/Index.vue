@@ -101,6 +101,7 @@ export default {
         LandingCard
     },
     computed: {
+        // @Todo: Need another watcher to switch between questions
         quizStatus () {
             return this.$store.state.quiz.quizStatus
         }
@@ -115,20 +116,21 @@ export default {
                     this.showResultCard()
                     break;
                 default:
-                    this.showResultCard()
+                    this.showLandingCard()
             }
         },
     },
     methods : {
+        // @Todo: Simplify code below
         showQuestionCard () {
             let questionViewContainer = this.$refs.container;
             if (questionViewContainer.hasChildNodes()) {
                 questionViewContainer.innerHTML = "";
             }
-            let buttonView = defineComponent({
+            let questionView = defineComponent({
                 extends: QuestionCard
             })
-            createApp(buttonView).mount(questionViewContainer)
+            createApp(questionView).mount(questionViewContainer)
         },
         showResultCard () {
             let resultViewContainer = this.$refs.container;
@@ -136,51 +138,19 @@ export default {
                 resultViewContainer.innerHTML = "";
             }
             let resultView = defineComponent({
-                extends: ResultCard, data() {
-                    return {
-                        question:  "What's your name?",
-                        options :  [
-                        {
-                            "text": "Yes",
-                            "question": {
-                            "text": "Do you monitor compliance to this schema?",
-                            "options": [
-                                {
-                                "text": "No",
-                                "result": {
-                                    "score": 0,
-                                    "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
-                                }
-                                },
-                                {
-                                "text": "Yes, manually",
-                                "result": {
-                                    "score": 0.5,
-                                    "text": "<p>Automation will reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
-                                }
-                                },
-                                {
-                                "text": "Yes, automatically",
-                                "result": {
-                                    "score": 1,
-                                    "text": "Great job 👍"
-                                }
-                                }
-                            ]
-                            }
-                        },
-                        {
-                            "text": "No",
-                            "result": {
-                            "score": 0,
-                            "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
-                            }
-                        }
-                        ]
-                    }
-                }
+                extends: ResultCard
             })
             createApp(resultView).mount(resultViewContainer)
+        },
+        showLandingCard () {
+            let landingViewContainer = this.$refs.container;
+            if (landingViewContainer.hasChildNodes()) {
+                landingViewContainer.innerHTML = "";
+            }
+            let landingView = defineComponent({
+                extends: LandingCard
+            })
+            createApp(landingView).mount(landingViewContainer)
         },
     }
 }

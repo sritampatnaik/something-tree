@@ -32,14 +32,17 @@ export const mutations = {
 }
 export const actions = {
     startQuiz({ commit }) {
-        // 1. Set question
-        // 2. Change quiz status
+        // Todo:
+        // 1. Set first question
+        // 2. Change quiz status to 1
         commit('SET_QUESTION_DATA')
         commit('UPDATE_QUIZ_STATUS', 1)
     },
     submitAnswer({ commit }) {
-        // 1. Submit Answer
-        // 2. Store Results Change Question Data
+        // Todo:
+        // 1. Submit and check answer
+        // 2. If last node show result, change status to 2
+        // 3. Else show next question, set next question data
         commit('SET_SCORE_DATA')
         commit('UPDATE_QUIZ_STATUS', 2)
     }

@@ -5,7 +5,7 @@
         "questions": [
             {
             "question": {
-                "text": "Do you have a schema that captures your feature expectations",
+                "text": "Do you have a schema that captures your feature expectations?",
                 "options": [
                 {
                     "text": "Yes",

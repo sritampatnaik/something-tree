@@ -1,10 +1,9 @@
 export const state = () => ({
     questions : null,
-    quizStatus : 0,
     numberOfCategories : 0,
     categoriesArr : [],
     indexOfCurrCategory : 0,
-    currQnNumber : 0,
+    quizStatus : 0,
     currCategory : '',
     currQuestion : '',
     currQuestionType : 0,
@@ -16,20 +15,22 @@ export const mutations = {
     SET_QUESTIONS(state, payload) {
         state.questions = payload
     },
-    INCREMENT_QN_NUMBER(state) {
-        state.currQnNumber += 1
+    UPDATE_QUIZ_STATUS(state, payload) {
+        state.quizStatus = payload
     }
 }
 export const actions = {
     startQuiz({ commit }) {
         // Change quiz status
         // Set question
-        commit('INCREMENT_QN_NUMBER')
+        commit('UPDATE_QUIZ_STATUS', 1)
+    },
+    submitAnswer({ commit }, payload) {
+        // 1. Submit Answer
+        // 2. Store Results Change Question Data
+        console.log(payload)
+        commit('UPDATE_QUIZ_STATUS', 2)
     }
-    // submitAnswer({ commit, state }, payload) {
-    //     // 1. Submit Answer
-    //     // 2. Store Results Change Question Data
-    // }
 }
 export default {
     namespaced: true,

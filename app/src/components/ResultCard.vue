@@ -7,13 +7,11 @@
             </div>
             <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 class="text-center text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-                    <span class="block text-white">{{question}} ?</span>
+                    <span class="block text-white">Result Card</span>
                 </h1>
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                     <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                        <a v-for="o in options" @click="submitAnswer(o.text)" :key="o.message" href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
-                            {{o.text}}
-                        </a>
+                        score
                     </div>
                 </div>
             </div>
@@ -21,23 +19,15 @@
     </transition>
 </template>
 <script>
-import store from '../store'
-
-export default {
-    name : 'QuestionCard',
-    data() {
-        return {
-            question : '',
-            options : null
-        }
-    },
-    methods : {
-        submitAnswer (payload) {
-            console.log(payload)
-            store.dispatch("main/submitAnswer", payload)
-        }
+    export default {
+        name : 'ResultCard',
+        data() {
+            return {
+                question : '',
+                options : null
+            }
+        } 
     }
-}
 </script>
 <style scoped>
 .fade-enter-active,

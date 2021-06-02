@@ -44,10 +44,6 @@ export const actions = {
         commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
     },
     submitAnswer({ commit , state }, selectionText) {
-        // @Todo:
-        // 1. Submit and check answer
-        // 2. If last node show result, change status to 2
-        // 3. Else show next question, set next question data
         const selectedIndex = state.currOptions.findIndex(o => o.text === selectionText)
         const selectedOption = state.currOptions[selectedIndex]
         if ('question' in selectedOption) {
@@ -60,6 +56,12 @@ export const actions = {
             commit('SET_SCORE_DATA', scoreData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.RESULT)
         }
+    },
+    nextTopLevelQuestion({ commit, state }) {
+        state.currentPath = computeNextTopLevelQuestionPath(state.currentPath)
+        const questionData = computeQuestionData(state.quizData, state.currentPath);
+        commit('SET_QUESTION_DATA', questionData)
+        commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
     }
 }
 
@@ -100,6 +102,26 @@ function createCategoryTitlePath(questionPath) {
         }
     }
     return result;
+}
+
+function computeNextTopLevelQuestionPath(questionPath) {
+    // TODO: Check if category is out of questions.
+    // TODO: Check if entire quiz is over.
+    let isNextItemQuestionIndex = false
+    const result = []
+    for (const item of questionPath) {
+        if (isNextItemQuestionIndex) {
+            const nextIndex = item + 1
+            result.push(nextIndex, 'question')
+            break;
+        } else if (item === 'questions') {
+            result.push(item)
+            isNextItemQuestionIndex = true
+        } else {
+            result.push(item)
+        }
+    }
+    return result
 }
 
 function computeScoreData(quizData, path) {

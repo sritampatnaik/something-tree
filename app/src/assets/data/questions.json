@@ -325,7 +325,7 @@
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a> offerings.</p>"
                     }
                 },
                 {
@@ -339,7 +339,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>There is huge room for improving models by tuning hyperparameters like learning rate, number of layers, and regularization coefficients. Your time will likely be well spent on tuning these. See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    "text": "<p>There is huge room for improving models by tuning hyperparameters like learning rate, number of layers, and regularization coefficients. Your time will likely be well spent on tuning these. See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a> offerings.</p>"
                     }
                 }
                 ]

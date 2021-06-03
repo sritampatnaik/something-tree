@@ -12,7 +12,8 @@
         </h1>
         <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
             Practitioners at Google have published 
-            <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf">
+            <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf"
+               target="_blank">
                 The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction
             </a>
              which has a comprehensive checklist, scoring system and a roadmap for improving production ML systems.

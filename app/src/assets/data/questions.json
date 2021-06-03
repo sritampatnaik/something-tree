@@ -16,14 +16,14 @@
                         "text": "No",
                         "result": {
                             "score": 0,
-                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
                         }
                         },
                         {
                         "text": "Yes, manually",
                         "result": {
                             "score": 0.5,
-                            "text": "<p>Automation will reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                            "text": "<p>Automation will reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
                         }
                         },
                         {
@@ -40,7 +40,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
+                    "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a target=\"_blank\" href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a target=\"_blank\" href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
                     }
                 }
                 ]
@@ -54,7 +54,7 @@
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "Consider automating this via a feature selection pipeline, or experiments to reduce <a href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a>"
+                    "text": "Consider automating this via a feature selection pipeline, or experiments to reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a>"
                     }
                 },
                 {
@@ -168,14 +168,14 @@
                     "text": "Yes, mandated by employee policy",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Consider implementing software based access control. The state of the art is <a href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>. This increases your safeguards from unaware or malicious insiders who do not need access to private data.</p>"
+                    "text": "<p>Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>. This increases your safeguards from unaware or malicious insiders who do not need access to private data.</p>"
                     }
                 },
                 {
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Privacy is very important to keep in mind when doing ML, especially with sensitive data sets. Consider implementing software based access control. The state of the art is <a href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>.</p>"
+                    "text": "<p>Privacy is very important to keep in mind when doing ML, especially with sensitive data sets. Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>.</p>"
                     }
                 }
                 ]
@@ -272,7 +272,7 @@
                         {
                         "text": "No",
                         "result": {
-                            "text": "<p>Code review will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>",
+                            "text": "<p>Code review will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>",
                             "score": 0.5
                         }                    
                         }
@@ -283,7 +283,7 @@
                     "text":"No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Code review and version control will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>"
+                    "text": "<p>Code review and version control will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>"
                     }
                 }
                 ]
@@ -304,14 +304,14 @@
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Consider setting up experiment tracking tools that are aware of business metrics to ensure business goals are met by your models. Some MLOps tools which focus on experiment tracking are <a href=\"https://wandb.ai/site\">Weights and Biases</a> and <a href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
+                    "text": "<p>Consider setting up experiment tracking tools that are aware of business metrics to ensure business goals are met by your models. Some MLOps tools which focus on experiment tracking are <a target=\"_blank\" href=\"https://wandb.ai/site\">Weights and Biases</a> and <a target=\"_blank\" href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
                     }
                 },
                 {
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>It is a good idea to measure, and ensure a positive correlation, between improving the model on its quality metrics, and metrics on business outcomes. One way of doing this is by running experiments using intentionally worse (or previous versions of) models. Some MLOps tools which focus on experiment tracking are <a href=\"https://wandb.ai/site\">Weights and Biases</a> and <a href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
+                    "text": "<p>It is a good idea to measure, and ensure a positive correlation, between improving the model on its quality metrics, and metrics on business outcomes. One way of doing this is by running experiments using intentionally worse (or previous versions of) models. Some MLOps tools which focus on experiment tracking are <a target=\"_blank\" href=\"https://wandb.ai/site\">Weights and Biases</a> and <a target=\"_blank\" href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
                     }
                 }
                 ]
@@ -325,7 +325,7 @@
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
                     }
                 },
                 {
@@ -339,7 +339,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>There is huge room for improving models by tuning hyperparameters like learning rate, number of layers, and regularization coefficients. Your time will likely be well spent on tuning these. See this<a href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
+                    "text": "<p>There is huge room for improving models by tuning hyperparameters like learning rate, number of layers, and regularization coefficients. Your time will likely be well spent on tuning these. See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a>offerings.</p>"
                     }
                 }
                 ]
@@ -410,7 +410,7 @@
                     "text": "Yes, automatically",
                     "result": {
                     "score": 1,
-                    "text": "<p>Nice job! Related to this topic, you might find Snorkel AI's <a href\"https://www.snorkel.org/blog/slicing\">post</a> on slice-based learning useful.</p>"
+                    "text": "<p>Nice job! Related to this topic, you might find Snorkel AI's <a target=\"_blank\" href\"https://www.snorkel.org/blog/slicing\">post</a> on slice-based learning useful.</p>"
                     }
                 },
                 {
@@ -438,21 +438,21 @@
                     "text": "Yes, automatically",
                     "result": {
                     "score": 1,
-                    "text": "<p>Great job! ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    "text": "<p>Great job! ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
                     }
                 },
                 {
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments. ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    "text": "<p>Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
                     }
                 },
                 {
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Especially if you are serving many different kinds of users, fairness and inclusion is important to get right. ML Fairness is an active research area, you might find the list of considerations and metrics <a href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful to figure out a process to test your model. Also try to ensure your training data is representative of the variety of the population the model is intended to serve.</p>"
+                    "text": "<p>Especially if you are serving many different kinds of users, fairness and inclusion is important to get right. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful to figure out a process to test your model. Also try to ensure your training data is representative of the variety of the population the model is intended to serve.</p>"
                     }
                 }
                 ]
@@ -715,7 +715,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Sharing code minimizes chances of divergent logic leading to different feature behavior. This has standardized around the concept of feature stores, both in cloud ML platforms as well as open-source tools like <a href=\"https://github.com/feast-dev/feast\">Feast</a> and enterprise focused tools like <a href=\"https://www.tecton.ai/\">Tecton</a>.</p>"
+                    "text": "<p>Sharing code minimizes chances of divergent logic leading to different feature behavior. This has standardized around the concept of feature stores, both in cloud ML platforms as well as open-source tools like <a target=\"_blank\" href=\"https://github.com/feast-dev/feast\">Feast</a> and enterprise focused tools like <a target=\"_blank\" href=\"https://www.tecton.ai/\">Tecton</a>.</p>"
                     }
                 }
                 ]

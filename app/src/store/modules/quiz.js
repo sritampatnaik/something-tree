@@ -16,12 +16,39 @@ export const state = () => ({
     currentPath: []
 })
 
+function serializeForStack(state) {
+    const copy = Object.assign({}, state);
+    delete copy.quizData;
+    copy.tag = 'QUIZ_STATE'
+    return JSON.stringify(copy);
+}
+
+function updateState(state, copy) {
+    state.quizStatus = copy.quizStatus,
+    state.currCategory = copy.currCategory,
+    state.currQuestion = copy.currQuestion,
+    state.currOptions = copy.currOptions,
+    state.currResultScore = copy.currResultScore,
+    state.currResultHTML = copy.currResultHTML,
+    state.categoryScores = copy.categoryScores,
+    state.aggregateScore = copy.aggregateScore,
+    state.currentPath = copy.currentPath
+}
+
 const QUIZ_START_PATH = '$[0].category.questions[0].question'
 
 export const mutations = {
+    SET_QUIZ_STATE(state, payload) {
+        const copy = JSON.parse(payload);
+        if (copy.quizStatus !== state.quizStatus
+            || copy.currQuestion !== state.currQuestion) {
+                updateState(state, copy);
+        }
+    },
     SET_QUESTIONS(state, payload) {
         state.quizData = payload
         state.currentPath = jsonpath.paths(payload, QUIZ_START_PATH, 1)[0]
+        window.history.pushState(serializeForStack(state), 'Quiz start');
     },
     UPDATE_QUIZ_STATUS(state, payload) {
         state.quizStatus = payload
@@ -42,8 +69,10 @@ export const actions = {
         const questionData = computeQuestionData(state.quizData, state.currentPath);
         commit('SET_QUESTION_DATA', questionData)
         commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
+        window.history.pushState(serializeForStack(state), 'First question')
     },
     submitAnswer({ commit , state }, selectionText) {
+        window.history.pushState(serializeForStack(state), 'Question')
         const selectedIndex = state.currOptions.findIndex(o => o.text === selectionText)
         const selectedOption = state.currOptions[selectedIndex]
         if ('question' in selectedOption) {
@@ -63,6 +92,7 @@ export const actions = {
         }
     },
     nextTopLevelQuestion({ commit, state }) {
+        window.history.pushState(serializeForStack(state), 'Result')
         const nextState = computeNext(state.quizData, state.currentPath)
         if (!nextState.quizOver) {
             state.currentPath = nextState.path

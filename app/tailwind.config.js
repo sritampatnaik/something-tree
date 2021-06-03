@@ -6,7 +6,7 @@ module.exports = {
         // These options are passed through directly to PurgeCSS
         options: {
             safelist: {
-                standard: [/red/, /yellow/, /green/, /sm:gridcols-/],
+                standard: [/red/, /yellow/, /green/, /sm:grid-cols-/],
             }
         }
     },

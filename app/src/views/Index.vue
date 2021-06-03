@@ -84,6 +84,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import LandingCard from "@/components/LandingCard";
 import QuestionCard from "@/components/QuestionCard";
 import ResultCard from "@/components/ResultCard";
+import FinalCard from "@/components/FinalCard"
 
 import {
   MenuIcon,
@@ -114,6 +115,9 @@ export default {
                     break;
                 case 2:
                     this.showResultCard()
+                    break;
+                case 3:
+                    this.showFinalCard()
                     break;
                 default:
                     this.showLandingCard()
@@ -152,6 +156,16 @@ export default {
             })
             createApp(landingView).mount(landingViewContainer)
         },
+        showFinalCard() {
+            let finalViewContainer = this.$refs.container;
+            if (finalViewContainer.hasChildNodes()) {
+                finalViewContainer.innerHTML = "";
+            }
+            let finalView = defineComponent({
+                extends: FinalCard
+            })
+            createApp(finalView).mount(finalViewContainer)
+        }
     }
 }
 </script>

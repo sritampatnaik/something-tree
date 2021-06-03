@@ -11,7 +11,7 @@ export const state = () => ({
     currOptions : '',
     currResultScore : '',
     currResultHTML : '',
-    categoryScore: 0,
+    categoryScores: {},
     aggregateScore: 0,
     currentPath: []
 })
@@ -53,7 +53,11 @@ export const actions = {
         } else if ('result' in selectedOption) {
             state.currentPath.push('options', selectedIndex, 'result');
             let scoreData = computeScoreData(state.quizData, state.currentPath)
-            state.aggregateScore += scoreData.score
+            if (state.currCategory in state.categoryScores) {
+                state.categoryScores[state.currCategory] += scoreData.score
+            } else {
+                state.categoryScores[state.currCategory] = scoreData.score
+            }
             commit('SET_SCORE_DATA', scoreData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.RESULT)
         }
@@ -66,6 +70,10 @@ export const actions = {
             commit('SET_QUESTION_DATA', questionData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
         } else {
+            // TODO: Read this aggregation from config.
+            state.aggregateScore = Math.min(...Object.values(state.categoryScores))
+            console.log(state.categoryScores)
+            console.log(state.aggregateScore)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.FINAL)
         }
     }
@@ -114,7 +122,7 @@ function createCategoryTitlePath(questionPath) {
  * 
  * @param {*} quizData 
  * @param {*} questionPath 
- * @returns an object with the next path and a boolean indicating quiz over.
+ * @returns an object with the next path and a booleans indicating if category or quiz is over.
  */
 function computeNext(quizData, questionPath) {
     let categoryIndex = questionPath[1]
@@ -129,8 +137,6 @@ function computeNext(quizData, questionPath) {
                 break;
             } else {
                 const nextCategoryIndex = categoryIndex + 1;
-                console.log(nextCategoryIndex)
-                console.log(quizData)
                 if (nextCategoryIndex < quizData.length) {
                     result[1] = nextCategoryIndex
                     result.push(0,'question');

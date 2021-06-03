@@ -5,7 +5,9 @@ module.exports = {
         content: ['./public/**/*.html', './src/**/*.vue'],
         // These options are passed through directly to PurgeCSS
         options: {
-            safelist: ['bg-red-700', 'bg-green-700', 'bg-yellow-700', 'sm:grid-cols-2']
+            safelist: {
+                standard: [/red/, /yellow/, /green/, /sm:gridcols-/],
+            }
         }
     },
     darkMode: false, // or 'media' or 'class'

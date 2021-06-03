@@ -7,16 +7,21 @@
         </div>
         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
         <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            <span class="block text-white">Take control of your</span>
-            <span class="block text-indigo-200">ML Operations</span>
+            <span class="block text-white">Evaluate your ML system with</span>
+            <span class="block text-indigo-200">ML Test Score</span>
         </h1>
         <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+            Practitioners at Google have published 
+            <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf">
+                The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction
+            </a>
+             which has a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
+             Find out how production ready your system is with this easy-to-use questionnaire based on the paper:
         </p>
         <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
             <button @click="startQuiz" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
-                Start Quiz
+                Start
             </button>
             </div>
         </div>

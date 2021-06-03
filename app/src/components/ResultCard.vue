@@ -39,7 +39,7 @@ export default {
         },
         getResultColor () {
             let color
-             switch(this.score) {
+            switch(this.score) {
                 case 0:
                     color = 'red'
                     break;

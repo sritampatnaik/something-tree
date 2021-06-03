@@ -1,7 +1,13 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-    purge: { content: ['./public/**/*.html', './src/**/*.vue'] },
+    purge: { 
+        content: ['./public/**/*.html', './src/**/*.vue'],
+        // These options are passed through directly to PurgeCSS
+        options: {
+            safelist: ['/red/', '/grid-cols-/']
+        }
+    },
     darkMode: false, // or 'media' or 'class'
     theme: {
         colors: {

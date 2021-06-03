@@ -63,7 +63,6 @@
 
         <main>
             <div>
-            <!-- Hero card -->
                 <div class="relative">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -73,8 +72,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- More main page content here... -->
         </main>
     </div>
 </template>
@@ -169,3 +166,11 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.result-text {
+    a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+</style>

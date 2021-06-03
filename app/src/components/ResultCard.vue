@@ -13,10 +13,10 @@
                 <p v-html="text" class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
                 </p>
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
-                    <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                        <a @click="nextQuestion" href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
+                    <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
+                        <button @click="nextQuestion" :class="'flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-' + getResultColor + '-700 bg-white hover:bg-' + getResultColor + '-50 sm:px-8'">
                             Next question
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

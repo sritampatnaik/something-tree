@@ -66,8 +66,8 @@
                 <div class="relative">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div ref="container">
-                                    <LandingCard/>
+                            <div ref="quizPageContainer">
+                                    <QuestionCard/>
                             </div>
                     </div>
                 </div>
@@ -78,7 +78,6 @@
 
 <script>
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import LandingCard from "@/components/LandingCard";
 import QuestionCard from "@/components/QuestionCard";
 import ResultCard from "@/components/ResultCard";
 import FinalCard from "@/components/FinalCard"
@@ -96,7 +95,7 @@ export default {
         PopoverPanel,
         MenuIcon,
         XIcon,
-        LandingCard
+        QuestionCard
     },
     computed: {
         // @Todo: Need another watcher to switch between questions
@@ -117,14 +116,14 @@ export default {
                     this.showFinalCard()
                     break;
                 default:
-                    this.showLandingCard()
+                    this.showQuestionCard()
             }
         },
     },
     methods : {
         // @Todo: Simplify code below
         showQuestionCard () {
-            let questionViewContainer = this.$refs.container;
+            let questionViewContainer = this.$refs.quizPageContainer;
             if (questionViewContainer.hasChildNodes()) {
                 questionViewContainer.innerHTML = "";
             }
@@ -134,7 +133,7 @@ export default {
             createApp(questionView).mount(questionViewContainer)
         },
         showResultCard () {
-            let resultViewContainer = this.$refs.container;
+            let resultViewContainer = this.$refs.quizPageContainer;
             if (resultViewContainer.hasChildNodes()) {
                 resultViewContainer.innerHTML = "";
             }
@@ -143,18 +142,8 @@ export default {
             })
             createApp(resultView).mount(resultViewContainer)
         },
-        showLandingCard () {
-            let landingViewContainer = this.$refs.container;
-            if (landingViewContainer.hasChildNodes()) {
-                landingViewContainer.innerHTML = "";
-            }
-            let landingView = defineComponent({
-                extends: LandingCard
-            })
-            createApp(landingView).mount(landingViewContainer)
-        },
         showFinalCard() {
-            let finalViewContainer = this.$refs.container;
+            let finalViewContainer = this.$refs.quizPageContainer;
             if (finalViewContainer.hasChildNodes()) {
                 finalViewContainer.innerHTML = "";
             }

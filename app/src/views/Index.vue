@@ -71,6 +71,19 @@
                             </div>
                     </div>
                 </div>
+                <!-- Logo cloud -->
+                <div class="bg-gray-100">
+                <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+                    <p class="text-center text-sm font-semibold text-gray-500 tracking-wide">
+                    Trusted by over 5 very average small businesses
+                    </p>
+                    <div class="mt-6 grid grid-cols-1 gap-8 md:grid-cols-1 lg:grid-cols-1">
+                        <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
+                            <img class="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </main>
     </div>
@@ -79,15 +92,15 @@
 <script>
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import LandingCard from "@/components/LandingCard";
-import QuestionCard from "@/components/QuestionCard";
-import ResultCard from "@/components/ResultCard";
-import FinalCard from "@/components/FinalCard"
+// import QuestionCard from "@/components/QuestionCard";
+// import ResultCard from "@/components/ResultCard";
+// import FinalCard from "@/components/FinalCard"
 
 import {
   MenuIcon,
   XIcon,
 } from '@heroicons/vue/outline'
-import {defineComponent,createApp} from 'vue'
+// import {defineComponent,createApp} from 'vue'
 
 export default {
     components: {
@@ -97,73 +110,73 @@ export default {
         MenuIcon,
         XIcon,
         LandingCard
-    },
-    computed: {
-        // @Todo: Need another watcher to switch between questions
-        quizStatus () {
-            return this.$store.state.quiz.quizStatus
-        }
-    },
-    watch: {
-        async quizStatus() {
-            switch(this.quizStatus) {
-                case 1:
-                    this.showQuestionCard()
-                    break;
-                case 2:
-                    this.showResultCard()
-                    break;
-                case 3:
-                    this.showFinalCard()
-                    break;
-                default:
-                    this.showLandingCard()
-            }
-        },
-    },
-    methods : {
-        // @Todo: Simplify code below
-        showQuestionCard () {
-            let questionViewContainer = this.$refs.container;
-            if (questionViewContainer.hasChildNodes()) {
-                questionViewContainer.innerHTML = "";
-            }
-            let questionView = defineComponent({
-                extends: QuestionCard
-            })
-            createApp(questionView).mount(questionViewContainer)
-        },
-        showResultCard () {
-            let resultViewContainer = this.$refs.container;
-            if (resultViewContainer.hasChildNodes()) {
-                resultViewContainer.innerHTML = "";
-            }
-            let resultView = defineComponent({
-                extends: ResultCard
-            })
-            createApp(resultView).mount(resultViewContainer)
-        },
-        showLandingCard () {
-            let landingViewContainer = this.$refs.container;
-            if (landingViewContainer.hasChildNodes()) {
-                landingViewContainer.innerHTML = "";
-            }
-            let landingView = defineComponent({
-                extends: LandingCard
-            })
-            createApp(landingView).mount(landingViewContainer)
-        },
-        showFinalCard() {
-            let finalViewContainer = this.$refs.container;
-            if (finalViewContainer.hasChildNodes()) {
-                finalViewContainer.innerHTML = "";
-            }
-            let finalView = defineComponent({
-                extends: FinalCard
-            })
-            createApp(finalView).mount(finalViewContainer)
-        }
     }
+    // computed: {
+    //     // @Todo: Need another watcher to switch between questions
+    //     quizStatus () {
+    //         return this.$store.state.quiz.quizStatus
+    //     }
+    // },
+    // watch: {
+    //     async quizStatus() {
+    //         switch(this.quizStatus) {
+    //             case 1:
+    //                 this.showQuestionCard()
+    //                 break;
+    //             case 2:
+    //                 this.showResultCard()
+    //                 break;
+    //             case 3:
+    //                 this.showFinalCard()
+    //                 break;
+    //             default:
+    //                 this.showLandingCard()
+    //         }
+    //     },
+    // },
+    // methods : {
+    //     // @Todo: Simplify code below
+    //     showQuestionCard () {
+    //         let questionViewContainer = this.$refs.container;
+    //         if (questionViewContainer.hasChildNodes()) {
+    //             questionViewContainer.innerHTML = "";
+    //         }
+    //         let questionView = defineComponent({
+    //             extends: QuestionCard
+    //         })
+    //         createApp(questionView).mount(questionViewContainer)
+    //     },
+    //     showResultCard () {
+    //         let resultViewContainer = this.$refs.container;
+    //         if (resultViewContainer.hasChildNodes()) {
+    //             resultViewContainer.innerHTML = "";
+    //         }
+    //         let resultView = defineComponent({
+    //             extends: ResultCard
+    //         })
+    //         createApp(resultView).mount(resultViewContainer)
+    //     },
+    //     showLandingCard () {
+    //         let landingViewContainer = this.$refs.container;
+    //         if (landingViewContainer.hasChildNodes()) {
+    //             landingViewContainer.innerHTML = "";
+    //         }
+    //         let landingView = defineComponent({
+    //             extends: LandingCard
+    //         })
+    //         createApp(landingView).mount(landingViewContainer)
+    //     },
+    //     showFinalCard() {
+    //         let finalViewContainer = this.$refs.container;
+    //         if (finalViewContainer.hasChildNodes()) {
+    //             finalViewContainer.innerHTML = "";
+    //         }
+    //         let finalView = defineComponent({
+    //             extends: FinalCard
+    //         })
+    //         createApp(finalView).mount(finalViewContainer)
+    //     }
+    // }
 }
 </script>
 <style lang="scss">

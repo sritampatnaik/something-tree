@@ -7,10 +7,13 @@
             </div>
             <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 class="text-center text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-                    <span class="block text-white">{{question}}</span>
+                    <span class="block text-white">{{currCategory}}</span>
+                </h1>
+                <h1 class="mt-10 mx-10 text-center text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
+                    <span class="text-white">{{question}}</span>
                 </h1>
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
-                    <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
+                    <div :class="'space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-' + options.length + ' sm:gap-5'">
                         <a v-for="o in options" @click="submitAnswer(o.text)" :key="o.message" href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
                             {{o.text}}
                         </a>
@@ -26,6 +29,9 @@ import store from '../store'
 export default {
     name : 'QuestionCard',
     computed: {
+        currCategory () {
+            return store.state.quiz.currCategory
+        },
         question () {
             return store.state.quiz.currQuestion
         },

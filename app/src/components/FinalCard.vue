@@ -1,28 +1,35 @@
-<template>
+<template >
     <transition appear name="fade">
-    <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
-        <div class="absolute inset-0">
-        <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops" />
-        <div class="absolute inset-0 bg-indigo-700 mix-blend-multiply" />
-        </div>
-        <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-        <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            <span class="block text-white">Check out your final</span>
-            <span class="block text-indigo-200">ML Test Score</span>
-        </h1>
-        <h1 class="text-center text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-            <span class="block text-white">Overall score:</span>
-            <span class="block text-indigo-300">{{overallScore}}</span>
-        </h1>
-        <form class="mt-5 sm:flex sm:items-center" name="contact" method="POST" data-netlify="true">
-            <div class="w-full sm:max-w-xs">
-            <label for="email" class="sr-only">Email</label>
-            <input type="text" name="email" id="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com" />
+    <div>
+        <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="relative rounded-2xl px-6 py-10 bg-indigo-600 overflow-hidden shadow-xl sm:px-12 sm:py-20">
+            <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
+            <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+                <path class="text-indigo-500 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
+                <path class="text-indigo-700 text-opacity-40" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
+            </svg>
             </div>
-            <button type="submit" class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-            Save
-            </button>
-        </form>
+            <div class="relative">
+            <div class="sm:text-center">
+                <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+                    <span class="text-white">Overall score: </span>
+                    <span class="text-indigo-300">{{overallScore}}</span>
+                </h2>
+                <p class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                                Get notified when we&rsquo;re launching.
+                </p>
+            </div>
+            <form action="#" class="mt-12 sm:mx-auto sm:max-w-lg sm:flex">
+                <div class="min-w-0 flex-1">
+                <label for="cta_email" class="sr-only">Email address</label>
+                <input id="cta_email" type="email" class="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600" placeholder="Enter your email" />
+                </div>
+                <div class="mt-4 sm:mt-0 sm:ml-3">
+                <button type="submit" class="block w-full rounded-md border border-transparent px-5 py-3 bg-indigo-500 text-base font-medium text-white shadow hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10">Notify me</button>
+                </div>
+            </form>
+            </div>
+        </div>
         </div>
     </div>
     </transition>
@@ -53,3 +60,20 @@ export default {
     opacity: 0;
 }
 </style>
+
+<!--
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ]
+  }
+  ```
+-->

@@ -6,6 +6,8 @@ Object.freeze(StatusEnum);
 export const state = () => ({
     quizData : null,
     quizStatus: StatusEnum.LANDING,
+    quizCatTotalNum : 0,
+    currCatCompNum : 0,
     currCategory : '',
     currQuestion : '',
     currOptions : '',
@@ -45,15 +47,19 @@ export const mutations = {
                 updateState(state, copy);
         }
     },
-    SET_QUESTIONS(state, payload) {
+    SET_INITIAL_STATE(state, payload) {
         state.quizData = payload
+        state.quizCatTotalNum = payload.length
         state.currentPath = jsonpath.paths(payload, QUIZ_START_PATH, 1)[0]
-        window.history.pushState(serializeForStack(state), 'Quiz start');
+        window.history.pushState(serializeForStack(state), 'Quiz start')
     },
     UPDATE_QUIZ_STATUS(state, payload) {
         state.quizStatus = payload
     },
     SET_QUESTION_DATA(state, questionData) {
+        if(state.currCategory != questionData.categoryTitle) {
+            state.currCatCompNum++
+        }
         state.currCategory = questionData.categoryTitle
         state.currQuestion = questionData.questionText
         state.currOptions = questionData.options

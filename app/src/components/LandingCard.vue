@@ -15,8 +15,8 @@
             <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf">
                 The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction
             </a>
-             which has a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
-             Find out how production ready your system is with this easy-to-use questionnaire based on the paper:
+                which has a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
+                Find out how production ready your system is with this easy-to-use questionnaire based on the paper:
         </p>
         <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
@@ -50,4 +50,8 @@ export default {
 .fade-leave-to {
     opacity: 0;
 }
+a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 </style>

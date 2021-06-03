@@ -5,7 +5,7 @@ import store from './store'
 import './assets/tailwind.css'
 import questions from './assets/data/questions.json';
 
-store.commit('quiz/SET_QUESTIONS', questions)
+store.commit('quiz/SET_INITIAL_STATE', questions)
 
 window.addEventListener("popstate", function(event) {
     console.log(event);

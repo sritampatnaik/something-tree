@@ -64,26 +64,13 @@
         <main>
             <div>
                 <div class="relative">
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div ref="container">
                                     <LandingCard/>
                             </div>
                     </div>
                 </div>
-                <!-- Logo cloud -->
-                <div class="bg-gray-100">
-                <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-                    <p class="text-center text-sm font-semibold text-gray-500 tracking-wide">
-                    Trusted by over 5 very average small businesses
-                    </p>
-                    <div class="mt-6 grid grid-cols-1 gap-8 md:grid-cols-1 lg:grid-cols-1">
-                        <div class="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                            <img class="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
-                        </div>
-                    </div>
-                </div>
-                </div>
+                <MiniFooter/>
             </div>
         </main>
     </div>
@@ -91,7 +78,9 @@
 
 <script>
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import LandingCard from "@/components/LandingCard";
+import LandingCard from "@/components/LandingCard"
+import MiniFooter from "@/components/MiniFooter"
+// import FinalCard from "@/components/FinalCard"
 // import QuestionCard from "@/components/QuestionCard";
 // import ResultCard from "@/components/ResultCard";
 // import FinalCard from "@/components/FinalCard"
@@ -109,7 +98,8 @@ export default {
         PopoverPanel,
         MenuIcon,
         XIcon,
-        LandingCard
+        LandingCard,
+        MiniFooter
     }
     // computed: {
     //     // @Todo: Need another watcher to switch between questions

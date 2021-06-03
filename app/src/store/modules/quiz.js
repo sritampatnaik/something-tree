@@ -1,6 +1,6 @@
 import jsonpath from 'jsonpath'
 
-const StatusEnum = {"LANDING": 0, "QUESTION": 1, "RESULT": 2}
+const StatusEnum = {"LANDING": 0, "QUESTION": 1, "RESULT": 2, "FINAL": 3}
 Object.freeze(StatusEnum);
 
 export const state = () => ({
@@ -53,15 +53,21 @@ export const actions = {
         } else if ('result' in selectedOption) {
             state.currentPath.push('options', selectedIndex, 'result');
             let scoreData = computeScoreData(state.quizData, state.currentPath)
+            state.aggregateScore += scoreData.score
             commit('SET_SCORE_DATA', scoreData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.RESULT)
         }
     },
     nextTopLevelQuestion({ commit, state }) {
-        state.currentPath = computeNextTopLevelQuestionPath(state.currentPath)
-        const questionData = computeQuestionData(state.quizData, state.currentPath);
-        commit('SET_QUESTION_DATA', questionData)
-        commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
+        const nextState = computeNext(state.quizData, state.currentPath)
+        if (!nextState.quizOver) {
+            state.currentPath = nextState.path
+            const questionData = computeQuestionData(state.quizData, state.currentPath);
+            commit('SET_QUESTION_DATA', questionData)
+            commit('UPDATE_QUIZ_STATUS', StatusEnum.QUESTION)
+        } else {
+            commit('UPDATE_QUIZ_STATUS', StatusEnum.FINAL)
+        }
     }
 }
 
@@ -104,24 +110,47 @@ function createCategoryTitlePath(questionPath) {
     return result;
 }
 
-function computeNextTopLevelQuestionPath(questionPath) {
-    // TODO: Check if category is out of questions.
-    // TODO: Check if entire quiz is over.
+/**
+ * 
+ * @param {*} quizData 
+ * @param {*} questionPath 
+ * @returns an object with the next path and a boolean indicating quiz over.
+ */
+function computeNext(quizData, questionPath) {
+    let categoryIndex = questionPath[1]
     let isNextItemQuestionIndex = false
+    let categoryQuestionsLength = 0
     const result = []
     for (const item of questionPath) {
         if (isNextItemQuestionIndex) {
             const nextIndex = item + 1
-            result.push(nextIndex, 'question')
-            break;
+            if (nextIndex < categoryQuestionsLength) {
+                result.push(nextIndex, 'question')
+                break;
+            } else {
+                const nextCategoryIndex = categoryIndex + 1;
+                console.log(nextCategoryIndex)
+                console.log(quizData)
+                if (nextCategoryIndex < quizData.length) {
+                    result[1] = nextCategoryIndex
+                    result.push(0,'question');
+                    break;
+                } else {
+                    console.log('Quiz is over')
+                    return {path: [], quizOver: true};
+                }
+            }
         } else if (item === 'questions') {
             result.push(item)
             isNextItemQuestionIndex = true
+            const categoryQuestionsPath = jsonpath.stringify(result) + '.*'
+            const categoryQuestions = jsonpath.query(quizData, categoryQuestionsPath)
+            categoryQuestionsLength = categoryQuestions.length
         } else {
             result.push(item)
         }
     }
-    return result
+    return {path: result, quizOver: false};
 }
 
 function computeScoreData(quizData, path) {

@@ -466,7 +466,7 @@
         "category": {
         "title": "ML Infrastructure",
         "questions": [
-            {
+        {
             "question": {
                 "text": "Do you have nondeterministic elements in your training setup?",
                 "options": [
@@ -503,25 +503,25 @@
             }
             },
             {
-            "question": {
-                "text": "Do you have unit tests for model specification code?",
-                "options": [
-                {
-                    "text": "Yes",
-                    "result": {
-                    "score": 1,
-                    "text": "Nice! Let us know if you have tool or process recommendations you'd like to share!"
+                "question": {
+                    "text": "Do you have unit tests for model specification code?",
+                    "options": [
+                    {
+                        "text": "Yes",
+                        "result": {
+                        "score": 1,
+                        "text": "Nice! Let us know if you have tool or process recommendations you'd like to share!"
+                        }
+                    },
+                    {
+                        "text": "No",
+                        "result": {
+                            "score": 0,
+                            "text": "Unit tests for models are tricky, especially if a novel approach is implemented. Some simple tests which are useful are 1) running a single step of gradient descent and verifying expectations, and 2) verifying restoring from a training checkpoint. Having these ensures issues are caught before a time and resource consuming training run."
+                        }
                     }
-                },
-                {
-                    "options": "No",
-                    "result": {
-                    "score": 0,
-                    "text": "Unit tests for models are tricky, especially if a novel approach is implemented. Some simple tests which are useful are 1) running a single step of gradient descent and verifying expectations, and 2) verifying restoring from a training checkpoint. Having these ensures issues are caught before a time and resource consuming training run."
-                    }
+                    ]
                 }
-                ]
-            }
             },
             {
             "question": {

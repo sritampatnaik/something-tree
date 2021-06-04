@@ -11,7 +11,7 @@
                     <span class="block text-white">{{currCategory}}</span>
                 </h1>
                 <h1 class="mt-10 mx-10 text-center text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
-                    <span class="text-white">{{question}}</span>
+                    <span class="text-white" v-html="question"></span>
                 </h1>
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                     <div :class="'space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-' + options.length + ' sm:gap-5'">

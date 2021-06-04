@@ -807,7 +807,7 @@
             },
             {
             "question": {
-                "text": "Do you have this performance monitoring by specific important slices of data?",
+                "text": "Do you have this performance monitoring by specific important slices of data?<br><br>For example, are you able to see latency for queries for a specific subset of input?",
                 "options": [
                 {
                     "text": "Yes",
@@ -849,7 +849,7 @@
             },
             {
             "question": {
-                "text": "Do you have this quality monitoring by specific important slices of data?",
+                "text": "Do you have this quality monitoring by specific important slices of data?<br><br>For example, are you able to see output distributions inferred for a specific subset of input?",
                 "options": [
                 {
                     "text": "Yes",

@@ -18,15 +18,40 @@
                 <h3 v-for="(score, category) in categoryScores" :key="category" class="text-xl font-semibold text-white tracking-tight sm:text-2xl">
                     <span class="text-white">{{category}} score: </span>
                     <span class="text-indigo-200">{{score}}</span>
-                 </h3>
-                <p class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                </h3>
+                <p class="mt-6 mx-auto max-w-2xl text-sm text-indigo-200">
                     The overall score is the minimum of the score across each of the categories, 
                     since they are each important in your ML system being production ready.
                     <br>
-                    At MetricRule, we are building an open-source monitoring stack for ML systems.
+                </p>
+
+                <p v-if="overallScore < 3" class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                    Hopefully, the questionnaire gave you a few ideas on how your ML system can 
+                    be better set to succeed in production! While there are a ton of suggestions, 
+                    prioritizing those that most reduce risk, like validation, monitoring, 
+                    version control and easy rollbacks are the best bet.
+                </p>
+                <p v-else-if="overallScore < 5.5" class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                    Nice! Seems like your system is set up pretty well to succeed! Hopefully, this 
+                    questionnaire gave you more ideas to further improve your project, reduce risk,
+                    and increase quality.
+                </p>
+                <p v-else class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                    Nice! Seems like your ML system is set up quite robustly! Do reach out to us if 
+                    you have suggestions on the content of this questionnaire.
+                </p>
+                <p class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
+                    At <a href="https://metricrule.com" target="blank">MetricRule</a>, we are building an open-source monitoring stack for ML systems.
                     <br>
-                    If this is a problem that you face and are looking to solve, we would ❤️ to chat 
-                    about your needs and how we can help.
+                    <span v-if="categoryScores.Monitoring < 6">
+                        If improving your ML monitoring to better understand and get alerted on 
+                        model behavior is of interest, do reach out to us about your needs. 
+                        We would love to chat and see if we can support you in this.
+                    </span>
+                    <span v-else>
+                        If there are specific needs that you are looking for in a ML monitoring tool, 
+                        we would love to chat about your needs and how we can help.
+                    </span>
                     <br>
                 </p>
                 <!-- <p class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">

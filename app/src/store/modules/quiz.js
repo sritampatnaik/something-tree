@@ -94,6 +94,7 @@ export const actions = {
             } else {
                 state.categoryScores[state.currCategory] = scoreData.score
             }
+            state.currCategoryCompletion = computeCompletionForResult(state.quizData, state.currentPath)
             commit('SET_SCORE_DATA', scoreData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.RESULT)
         }
@@ -154,6 +155,31 @@ function createCategoryTitlePath(questionPath) {
         }
     }
     return result;
+}
+
+function computeCompletionForResult(quizData, questionPath) {
+    let isNextItemQuestionIndex = false
+    let categoryQuestionsLength = 0
+    const accumulated = []
+    for (const item of questionPath) {
+        if (isNextItemQuestionIndex) {
+            const nextIndex = item + 1
+            if (nextIndex < categoryQuestionsLength) {
+                return nextIndex / categoryQuestionsLength
+            } else {
+                return 1
+            }
+        } else if (item === 'questions') {
+            accumulated.push(item)
+            isNextItemQuestionIndex = true
+            const categoryQuestionsPath = jsonpath.stringify(accumulated) + '.*'
+            const categoryQuestions = jsonpath.query(quizData, categoryQuestionsPath)
+            categoryQuestionsLength = categoryQuestions.length
+        } else {
+            accumulated.push(item)
+        }
+    }
+    return 0
 }
 
 /**

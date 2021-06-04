@@ -19,6 +19,13 @@
                             </span>
                             </p>
                         </div>
+                        <div class="flex-1 px-8 sm:px-6 lg:px-10">
+                            <div class="relative">
+                                <div :class="'overflow-hidden h-2 text-xs flex rounded bg-' + getResultColor + '-200'">
+                                    <div :style="'width:' + catCompletionPercentage + '%'" :class="'shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-' + getResultColor + '-500'"></div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -68,6 +75,9 @@ export default {
                     color = 'green'
             }
             return color;
+        },
+        catCompletionPercentage () {
+            return store.state.quiz.currCategoryCompletion * 100
         }
     },
     methods : {

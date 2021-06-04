@@ -9,6 +9,7 @@ export const state = () => ({
     quizCatTotalNum : 0,
     currCatCompNum : 0,
     currCategory : '',
+    currCategoryCompletion: 0,
     currQuestion : '',
     currOptions : '',
     currResultScore : '',
@@ -100,6 +101,7 @@ export const actions = {
     nextTopLevelQuestion({ commit, state }) {
         window.history.pushState(serializeForStack(state), 'Result')
         const nextState = computeNext(state.quizData, state.currentPath)
+        state.currCategoryCompletion = nextState.categoryCompletion
         if (!nextState.quizOver) {
             state.currentPath = nextState.path
             const questionData = computeQuestionData(state.quizData, state.currentPath);
@@ -158,18 +160,20 @@ function createCategoryTitlePath(questionPath) {
  * 
  * @param {*} quizData 
  * @param {*} questionPath 
- * @returns an object with the next path and a booleans indicating if category or quiz is over.
+ * @returns an object with the next path and boolean indicating if quiz is over.
  */
 function computeNext(quizData, questionPath) {
     let categoryIndex = questionPath[1]
     let isNextItemQuestionIndex = false
     let categoryQuestionsLength = 0
+    let categoryCompletion = 0
     const result = []
     for (const item of questionPath) {
         if (isNextItemQuestionIndex) {
             const nextIndex = item + 1
             if (nextIndex < categoryQuestionsLength) {
                 result.push(nextIndex, 'question')
+                categoryCompletion = nextIndex / categoryQuestionsLength
                 break;
             } else {
                 const nextCategoryIndex = categoryIndex + 1;
@@ -179,7 +183,7 @@ function computeNext(quizData, questionPath) {
                     break;
                 } else {
                     console.log('Quiz is over')
-                    return {path: [], quizOver: true};
+                    return {path: [], quizOver: true, categoryCompletion: 1};
                 }
             }
         } else if (item === 'questions') {
@@ -192,7 +196,7 @@ function computeNext(quizData, questionPath) {
             result.push(item)
         }
     }
-    return {path: result, quizOver: false};
+    return {path: result, quizOver: false, categoryCompletion};
 }
 
 function computeScoreData(quizData, path) {

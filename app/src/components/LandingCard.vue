@@ -2,7 +2,7 @@
     <transition appear name="fade">
     <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
         <div class="absolute inset-0">
-        <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops" />
+        <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1561816273-56c6232d3990?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80" alt="Dashboard" />
         <div class="absolute inset-0 bg-indigo-700 mix-blend-multiply" />
         </div>
         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
@@ -10,14 +10,15 @@
             <span class="block text-white">Evaluate your ML system with</span>
             <span class="block text-indigo-200">ML Test Score</span>
         </h1>
-        <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
+        <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-100 sm:max-w-3xl font-semibold">
             Practitioners at Google have published 
             <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf"
                target="_blank">
                 The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction
             </a>
-                which has a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
-                Find out how production ready your system is with this easy-to-use questionnaire based on the paper:
+                with a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
+                <br><br>
+                Find out how production ready your system is with this questionnaire:
         </p>
         <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">

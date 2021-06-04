@@ -5,7 +5,7 @@
         "questions": [
             {
             "question": {
-                "text": "Do you have a schema that captures your feature expectations?",
+                "text": "Do you have a schema that captures your feature expectations?<br><br>A <i>schema</i> is a human and/or machine-readable documentation that outlines the type, expected and allowed range of values, format, encoding, and other details about the data in your features.",
                 "options": [
                 {
                     "text": "Yes",
@@ -16,14 +16,14 @@
                         "text": "No",
                         "result": {
                             "score": 0,
-                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>A couple of tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>Some tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a>, <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>, and <a target=\"_blank\" href=\"https://json-schema.org/\">JSON Schema</a>.</p>"
                         }
                         },
                         {
                         "text": "Yes, manually",
                         "result": {
                             "score": 0.5,
-                            "text": "<p>Automation will reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. A couple of tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> and <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>.</p>"
+                            "text": "<p>Automation will reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a> and ensure best practices scale across projects. Some tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a>, <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>, and <a target=\"_blank\" href=\"https://json-schema.org/\">JSON Schema</a>.</p>"
                         }
                         },
                         {
@@ -40,7 +40,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Setting up a schema will document your features and their expectations. One way to set up a schema is to use Tensorflow Data Validation to </span><a target=\"_blank\" href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a target=\"_blank\" href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> or <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
+                    "text": "<p>Setting up a schema will document your features and their expectations for both members of your team and machine verification. One way to get started with a schema is to use Tensorflow Data Validation to </span><a target=\"_blank\" href=\"https://www.tensorflow.org/tfx/data_validation/get_started#inferring_a_schema_over_the_data\">infer a schema</a>, which represents it as <a target=\"_blank\" href=\"https://github.com/tensorflow/metadata/blob/master/tensorflow_metadata/proto/v0/schema.proto\">Tensorflow Schema Proto</a>.</p><p>Once you have a schema, use tooling to check for compliance, e.g with <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a> ,<a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>, and <a target=\"_blank\" href=\"https://json-schema.org/\">JSON Schema</a>. This will protect you from pipeline errors, or changing feature specifications making a model outdated.</p>"
                     }
                 }
                 ]
@@ -48,7 +48,7 @@
             },
             {
             "question": {
-                "text": "Do you periodically check that each feature is necessary for your model accuracy?",
+                "text": "Do you periodically check that each feature is necessary for your model's quality and are not redundant?",
                 "options": [
                 {
                     "text": "Yes, manually",
@@ -68,7 +68,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Each additional feature can add high engineering and compute costs. Try checking the following to see if a marginal feature is adding value:></p><ul><li>Check the pairwise correlation of features to identify any pairs that move together (and add no information)</li><li>Train a model with all features except 1 (for each feature) and measure how well it&rsquo;s doing</li><li>Train a model including only 1 feature</li></ul>"
+                    "text": "<p>Each additional feature can add high engineering and compute costs. Try checking the following to see if a marginal feature is adding value:></p><ul><li>Check the pairwise correlation of features to identify any pairs that move together (and add no information)</li><li>Train a model with all features except 1 (for each feature) and measure how well it&rsquo;s doing (aka <a href=\"https://explained.ai/rf-importance/#5\" target=\"blank\">drop-column importance</a>)</li><li>Train a model including only 1 feature</li><li>See other suggestions for measuring <a href=\"https://explained.ai/rf-importance/#intro\" target=\"blank\">feature importance</a></li></ul>"
                     }
                 }
                 ]
@@ -76,12 +76,12 @@
             },
             {
             "question": {
-                "text": "Do you know how costly each of your features are?",
+                "text": "Do you know how costly each of your features are?<br><br>A feature can be costly to your team in many ways: computationally (directly and for dependencies), organizationally, and in terms of engineering resources.",
                 "options": [
                 {
                     "text": "Yes",
                     "question": {
-                    "text": "Do you have a score kept up to date automatically?",
+                    "text": "Do you have a numeric or heuristic score kept up to date automatically?",
                     "options": [
                         {
                         "text": "Yes",
@@ -94,7 +94,7 @@
                         "text": "No",
                         "result": {
                             "score": 0.5,
-                            "text": "Building out a single score which is kept up to date can help you to automate e.g feature selection with costs in mind. Remember: your features can be costly computationally (compute, network, disk) to build and serve, and there may be engineering and operational costs to maintain the feature."
+                            "text": "Building out a score which is kept up to date can help you to automate e.g feature selection weighing costs in addition to model importance. Remember: your features can be costly computationally (compute, network, disk) to build and serve, and there may be engineering and operational costs to maintain the feature."
                         }
                         }
                     ]
@@ -104,7 +104,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>To get an idea of this, use your cloud service provider (or ask your administrators) to measure compute, network, and disk costs for 1) storing your features and 2) keeping them fresh. Consider engineering costs of maintenance and fixing instabilities, and the downstream costs of that feature due to dependencies. Having an idea of this cost will help you make tradeoffs, e.g. in feature selection, which take cost into account</p>"
+                    "text": "<p>To get an idea of this, use your cloud service provider (or ask your administrators) to measure compute, network, and disk costs for 1) storing your features and 2) keeping them fresh. Consider engineering costs of maintenance and fixing instabilities, and the downstream costs of that feature due to dependencies. Also consider organizational costs and risks if dependencies are across team boundaries. Having an idea of this cost will help you make tradeoffs, e.g. in feature selection, which take cost into account</p>"
                     }
                 }
                 ]
@@ -112,18 +112,18 @@
             },
             {
             "question": {
-                "text": "Are you in an industry with specific regulatory or business requirements for features?",
+                "text": "Are you in an industry with specific regulatory or business requirements for features?<br><br>The most common cases for such requirements are those dealing with users' sensitive personal information such as healthcare or financial data. The jurisdiction your company operates in may also have specific guidelines on data usage and auditing. For example, if you operate in the EU, you may be subject to the General Data Protection Regulation (GDPR).",
                 "options": [
                 {
                     "text": "Yes",
                     "question": {
-                    "text": "Do you audit your features to comply with these?",
+                    "text": "Do you audit your features to comply with these regulations?",
                     "options": [
                         {
                         "text": "Yes, automatically",
                         "result": {
                             "score": 1,
-                            "text": "Great!"
+                            "text": "Great 👍"
                         }
                         },
                         {
@@ -137,7 +137,7 @@
                         "text": "No",
                         "result": {
                             "score": 0,
-                            "text": "Consider setting up audit logs to comply with these requirements. Doing this will mitigate reputational and regulatory risk."
+                            "text": "This definitely isn't legal advice, but do consider setting up audit logs to comply with these requirements."
                         }
                         }
                     ]
@@ -147,7 +147,7 @@
                     "text": "No",
                     "result": {
                     "score": 1,
-                    "text": "Ok, let's proceed then"
+                    "text": "Ok, let's proceed then ➡️"
                     }
                 }
                 ]
@@ -168,14 +168,14 @@
                     "text": "Yes, mandated by employee policy",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>. This increases your safeguards from unaware or malicious insiders who do not need access to private data.</p>"
+                    "text": "While limiting data access by policy is good, it is not perfect.<p>Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>. This increases your safeguards from unaware or malicious insiders who do not need access to private data.</p>"
                     }
                 },
                 {
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Privacy is very important to keep in mind when doing ML, especially with sensitive data sets. Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>.</p>"
+                    "text": "<p>Privacy is very important to keep in mind when doing ML, especially with sensitive data sets. Limiting data access is also a security step, making it harder for external actors to gain access to sensitive data. Consider implementing software based access control. The state of the art is <a target=\"_blank\" href=\"https://www.okta.com/blog/2020/09/attribute-based-access-control-abac/\">Attribute Based Access Control</a>.</p>"
                     }
                 }
                 ]
@@ -183,7 +183,7 @@
             },
             {
             "question": {
-                "text": "Do you know how much time it takes for a single engineer to validate and add a new feature, from idea to production?",
+                "text": "Do you know how much time it takes for a single engineer to validate and add a new feature, from idea to production?<br><br>Keep in mind all the steps - from cleaning and processing data, running training, validation, to being ready to deploy an experiment.",
                 "options": [
                 {
                     "text": "Yes",
@@ -194,7 +194,7 @@
                         "text": "Days or weeks",
                         "result": {
                             "score": 1,
-                            "text": "Awesome! Do make sure that features are well tested and validated before rolling it out"
+                            "text": "Awesome! Do make sure that features are well tested and validated before rolling it out, and have guardrails to rollback if needed."
                         }
                         },
                         {
@@ -208,7 +208,7 @@
                         "text": "More than a quarter",
                         "result": {
                             "score": 0.5,
-                            "text": "Try to reduce bottlenecks and operational tasks in the process to get this down to 1-2 months. 1 way to reduce this can be to set up robust experimentation, canarying and rollback processes to reduce the risk of a bad production build."
+                            "text": "Try to reduce bottlenecks and operational tasks in the process to get this down to 1-2 months. One way to reduce this can be to set up robust experimentation, canarying and rollback processes to reduce the risk of a bad production build. Other bottlenecks in the process can be indicative of areas where it would be good to invest in building or buying tooling."
                         }
                         }
                     ]
@@ -218,7 +218,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Consider measuring this for the next few model features to get an idea of the technical ease of evolving the model. Production data and behavior is likely to change and the ability to be agile on features can be invaluable in keeping the model relevant."
+                    "text": "Consider measuring this for the next few model features to get an idea of the technical ease of evolving the model. Production data and behavior is likely to change and the ability to be agile on features can be invaluable in keeping the model relevant and improving."
                     }
                 }
                 ]
@@ -255,12 +255,12 @@
         "questions": [
             {
             "question": {
-                "text": "Do you store your model in a version control repo?",
+                "text": "Do you store your model in a version control repository?<br><br>This is likely something like GitHub, GitLab or BitBucket.",
                 "options": [
                 {
                     "text": "Yes",
                     "question": {
-                    "text": "Does all of your model code go through a review and integration process using these or other tools?",
+                    "text": "Does all of your model code go through a code review and integration process using these or other tools?",
                     "options": [
                         {
                         "text": "Yes",
@@ -272,7 +272,7 @@
                         {
                         "text": "No",
                         "result": {
-                            "text": "<p>Code review will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>",
+                            "text": "<p>Code review and continuous integration will help have reproducible training, which will assist in debugging, auditing, and understanding your model. See <a href=\"https://google.github.io/eng-practices/review/reviewer/\" target=\"blank\">these</a> <a href=\"https://se4ml.org/software/chapter_cr.html#code-review\" target=\"blank\">resources</a> to get started with a code review process. With a reviewed and checked-in model specification, retraining with new training data can help understand the effects of improving data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>",
                             "score": 0.5
                         }                    
                         }
@@ -283,7 +283,7 @@
                     "text":"No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Code review and version control will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>"
+                    "text": "<p>Version control and code review will help have reproducible training, which will assist in debugging, auditing, and understanding your model. For instance, retraining a model with new training data can help understand effects of new data. See Andrew Ng&rsquo;s <a target=\"_blank\" href=\"https://www.youtube.com/watch?v=06-AZXmwHjo\">talk</a> on data-centric approaches and this <a target=\"_blank\" href=\"https://www.facebook.com/andrew.ng.96/posts/3982283021827575\">suggestion</a> to think about how data affects model quality.</p>"
                     }
                 }
                 ]
@@ -291,7 +291,7 @@
             },
             {
             "question": {
-                "text": "Have you measured how the metric your model is optimized for (e.g loss function) correlates with business impact metrics (e.g NPS, clickthrough rate)",
+                "text": "Have you measured how the metric your model is optimized for (e.g loss function) correlates with business impact metrics (e.g NPS, clickthrough rate, conversion rate)",
                 "options": [
                 {
                     "text": "Yes, automatically",
@@ -311,7 +311,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>It is a good idea to measure, and ensure a positive correlation, between improving the model on its quality metrics, and metrics on business outcomes. One way of doing this is by running experiments using intentionally worse (or previous versions of) models. Some MLOps tools which focus on experiment tracking are <a target=\"_blank\" href=\"https://wandb.ai/site\">Weights and Biases</a> and <a target=\"_blank\" href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
+                    "text": "<p>It is a good idea to measure, and ensure there is a positive correlation, between improving the model on its quality metrics, and metrics on business outcomes. This will make sure that the time spent by your data science team is directly good for your business. One way of doing this is by running A/B experiments using intentionally worse (or previous versions of) models and measuring resulting differences in business outcomes. Some MLOps tools which focus on experiment tracking are <a target=\"_blank\" href=\"https://wandb.ai/site\">Weights and Biases</a> and <a target=\"_blank\" href=\"https://neptune.ai/\">Neptune AI</a>.</p>"
                     }
                 }
                 ]
@@ -319,7 +319,7 @@
             },
             {
             "question": {
-                "text": "Have you tuned your hyperparameters?",
+                "text": "Have you tuned your hyperparameters?<br><br>Hyperparameters are parameters that are decided at the start of the training process (and not parameters which are derived, like node weights) - for instance learning rate and regularization coefficients. Tuning refers to picking the best combination of these hyperparameters.",
                 "options": [
                 {
                     "text": "Yes, manually",
@@ -396,7 +396,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Consider building a baseline (e.g. a linear model) to measure the tradeoff in engineering, maintenance, and auditability of a more complex model."
+                    "text": "Consider building a baseline (e.g. a very simple linear model or applying a naive heuristic) to understand the tradeoff in engineering, maintenance, and auditability of a more complex model."
                     }
                 }
                 ]
@@ -404,7 +404,7 @@
             },
             {
             "question": {
-                "text": "Do you measure model quality metrics along specific slices of interest?",
+                "text": "Do you measure model quality metrics along specific slices of interest?<br><br>A slice is an attribute of your input - for instance it could be the geography / market, the user's segment (paying vs non-paying), or some other feature column of specific interest.",
                 "options": [
                 {
                     "text": "Yes, automatically",
@@ -424,7 +424,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Top-line quality metrics may not tell the full story. Specific slices of inputs might be disproportionately affected. If these slices are important for regulatory, fairness, or business reasons, they should be evaluated specifically."
+                    "text": "Top-line quality metrics may not tell the full story. Specific slices of inputs might be disproportionately affected. If these slices are important for regulatory, fairness, or business reasons (e.g enterprise users, customers likely to churn), they should be evaluated specifically."
                     }
                 }
                 ]
@@ -438,21 +438,21 @@
                     "text": "Yes, automatically",
                     "result": {
                     "score": 1,
-                    "text": "<p>Great job! ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    "text": "<p>Great job! ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful. Also check out <a href=\"https://github.com/slundberg/shap\" target=\"_blank\">SHAP</a> and <a href=\"https://github.com/marcotcr/lime\" target=\"blank\">LIME</a> which help explain model behavior.</p>"
                     }
                 },
                 {
                     "text": "Yes, manually",
                     "result": {
                     "score": 0.5,
-                    "text": "<p>Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful.</p>"
+                    "text": "<p>Consider setting this up in automated infrastructure to ensure this check is applied consistently and without additional manual action on all deployments. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful. Also check out <a href=\"https://github.com/slundberg/shap\" target=\"_blank\">SHAP</a> and <a href=\"https://github.com/marcotcr/lime\" target=\"blank\">LIME</a> which help explain model behavior.</p>"
                     }
                 },
                 {
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "<p>Especially if you are serving many different kinds of users, fairness and inclusion is important to get right. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful to figure out a process to test your model. Also try to ensure your training data is representative of the variety of the population the model is intended to serve.</p>"
+                    "text": "<p>Especially if you are serving many different kinds of users, fairness and inclusion is important to get right. ML Fairness is an active research area, you might find the list of considerations and metrics <a target=\"_blank\" href=\"https://machinesgonewrong.com/fairness/\">here</a> helpful to figure out a process to test your model. Check out <a href=\"https://github.com/slundberg/shap\" target=\"_blank\">SHAP</a> and <a href=\"https://github.com/marcotcr/lime\" target=\"blank\">LIME</a> which help explain model behavior. Also try to ensure your training data is representative of the variety of the population the model is intended to serve.</p>"
                     }
                 }
                 ]
@@ -468,7 +468,7 @@
         "questions": [
         {
             "question": {
-                "text": "Do you have nondeterministic elements in your training setup?",
+                "text": "Do you have nondeterministic elements in your training setup?<br><br>These could be intentional sources of randomness, or emergent behaviors due to multithreading, distributed compute, or unspecified initialization order of services.",
                 "options": [
                 {
                     "text": "Yes",
@@ -495,7 +495,7 @@
                 {
                     "text": "No",
                     "result": {
-                    "text": "Ok, let's proceed then",
+                    "text": "Ok, let's proceed then ➡️",
                     "score": 1
                     }
                 }
@@ -573,7 +573,7 @@
                     "text": "Yes",
                     "result": {
                     "score": 1,
-                    "text": "Awesome! Let us know if you know tools to do this which you'd like to share"
+                    "text": "Awesome! Let us know if you know tools to help do this which you'd like to share"
                     }
                 },
                 {
@@ -588,7 +588,7 @@
             },
             {
             "question": {
-                "text": "Do you have a way to canary a new model version when rolling it out?",
+                "text": "Do you have a way to canary a new model version when rolling it out?<br><br>This likely looks like using the new model with a small percentage of traffic and monitoring its behavior metrics.",
                 "options": [
                 {
                     "text": "Yes",
@@ -616,7 +616,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Production data can be quite different from training and validation data. Being able to roll out a model to a small percentage of traffic first can reduce the risk of regressions."
+                    "text": "Production data can be quite different from training and validation data. Being able to roll out a model to a small percentage of traffic first can reduce the risk of regressions affecting the entire service."
                     }
                 }
                 ]
@@ -653,7 +653,7 @@
         "questions": [
             {
             "question": {
-                "text": "Do you keep track of your dependencies for changes in behavior?",
+                "text": "Do you keep track of your dependencies for changes in behavior?<br><br>This could involve being subscribed to mailing lists or release notes, or other ways of being updated.",
                 "options": [
                 {
                     "text": "Yes",
@@ -666,14 +666,14 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Consider having explicit SLAs on how changes in behavior of dependencies are communicated. If possible, depend on fixed versions and not on black-box services to minimize surprises."
+                    "text": "Consider having explicit SLAs on how changes in behavior of dependencies are communicated.<br>If possible, depend on fixed versions and not on black-box services to minimize surprises."
                     }
                 },
                 {
                     "text": "We don't have external dependencies",
                     "result": {
                     "score": 1,
-                    "text": "Ok, let's proceed then"
+                    "text": "Ok, let's proceed then ➡️"
                     }
                 }
                 ]
@@ -681,7 +681,7 @@
             },
             {
             "question": {
-                "text": "Do you monitor your serving input features against schema?",
+                "text": "Do you monitor your serving input features against schema?<br><br>Recall that the first section mentioned feature schemas - where the data expectations are documented.",
                 "options": [
                 {
                     "text": "Yes",
@@ -702,7 +702,7 @@
             },
             {
             "question": {
-                "text": "Is feature generation code shared between training and serving?",
+                "text": "Is feature generation code shared between training and serving?<br><br>That is, is the same pipeline used to generate the feature in both environments?",
                 "options": [
                 {
                     "text": "Yes",
@@ -736,7 +736,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Consider setting up monitoring to compare distribution statistics (e.g median, quartiles) between training and serving data.This will reduce the risk of different feature representations - for both scenarios where training data is outdated as well as where training and serving input is powered by code paths."
+                    "text": "Consider setting up monitoring to compare distribution statistics (e.g median, quartiles) between training and serving data. Training-serving skew is a common source of ML underperformance. This will reduce the risk of different feature representations - for both scenarios where training data is outdated as well as where training and serving input is powered by different code paths."
                     }
                 }
                 ]
@@ -757,7 +757,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "If you have analysed the effect of model staleness (as discussed in the Model section), use that as a threshold to monitor that the model is refreshed correctly in time. This will guard against errors like failed pipeline runs not renewing the model."
+                    "text": "If the effect of model staleness is known (as discussed in the Model section), that can be used to figure out the threshold after which model performance is not up to par. Set that as a threshold to monitor that the model is refreshed correctly in time. This will guard against errors like failed pipeline runs not refreshing the model."
                     }
                 }
                 ]
@@ -778,7 +778,7 @@
                     "text": "No",
                     "result": {
                     "score": 0,
-                    "text": "Explicitly monitoring for counts of this common source of error can help to detect erroneous behavior early, and save you a lot of debugging time."
+                    "text": "Explicitly monitoring for counts of this common source of error can help to detect erroneous behavior early, and save your team a lot of debugging time.<br><br>Numerically unlikely values can also be specific to your model or domain - e.g values that can only be positive in the real world, like number of clicks, being predicted to be zero or negative."
                     }
                 }
                 ]
@@ -807,7 +807,7 @@
             },
             {
             "question": {
-                "text": "Do you have this monitoring by specific important slices of data?",
+                "text": "Do you have this performance monitoring by specific important slices of data?<br><br>For example, are you able to see latency for queries for a specific subset of input?",
                 "options": [
                 {
                     "text": "Yes",
@@ -849,7 +849,7 @@
             },
             {
             "question": {
-                "text": "Do you have this monitoring by specific important slices of data?",
+                "text": "Do you have this quality monitoring by specific important slices of data?<br><br>For example, are you able to see output distributions inferred for a specific subset of input?",
                 "options": [
                 {
                     "text": "Yes",

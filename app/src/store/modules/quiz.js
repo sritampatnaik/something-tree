@@ -27,15 +27,18 @@ function serializeForStack(state) {
 }
 
 function updateState(state, copy) {
-    state.quizStatus = copy.quizStatus,
-    state.currCategory = copy.currCategory,
-    state.currQuestion = copy.currQuestion,
-    state.currOptions = copy.currOptions,
-    state.currResultScore = copy.currResultScore,
-    state.currResultHTML = copy.currResultHTML,
-    state.categoryScores = copy.categoryScores,
-    state.aggregateScore = copy.aggregateScore,
+    state.quizStatus = copy.quizStatus
+    state.currCategory = copy.currCategory
+    state.currQuestion = copy.currQuestion
+    state.currOptions = copy.currOptions
+    state.currResultScore = copy.currResultScore
+    state.currResultHTML = copy.currResultHTML
+    state.categoryScores = copy.categoryScores
+    state.aggregateScore = copy.aggregateScore
     state.currentPath = copy.currentPath
+    state.currCategoryCompletion = copy.currCategoryCompletion
+    state.quizCatTotalNum = copy.quizCatTotalNum
+    state.currCatCompNum = copy.currCatCompNum
 }
 
 const QUIZ_START_PATH = '$[0].category.questions[0].question'
@@ -56,11 +59,12 @@ export const mutations = {
     },
     UPDATE_QUIZ_STATUS(state, payload) {
         state.quizStatus = payload
+        if (state.quizStatus === StatusEnum.FINAL) {
+            state.currCatCompNum = state.quizCatTotalNum + 1
+        }
     },
     SET_QUESTION_DATA(state, questionData) {
-        if(state.currCategory != questionData.categoryTitle) {
-            state.currCatCompNum++
-        }
+        state.currCatCompNum = state.currentPath[1] + 1
         state.currCategory = questionData.categoryTitle
         state.currQuestion = questionData.questionText
         state.currOptions = questionData.options
@@ -94,6 +98,7 @@ export const actions = {
             } else {
                 state.categoryScores[state.currCategory] = scoreData.score
             }
+            state.currCategoryCompletion = computeCompletionForResult(state.quizData, state.currentPath)
             commit('SET_SCORE_DATA', scoreData)
             commit('UPDATE_QUIZ_STATUS', StatusEnum.RESULT)
         }
@@ -154,6 +159,31 @@ function createCategoryTitlePath(questionPath) {
         }
     }
     return result;
+}
+
+function computeCompletionForResult(quizData, questionPath) {
+    let isNextItemQuestionIndex = false
+    let categoryQuestionsLength = 0
+    const accumulated = []
+    for (const item of questionPath) {
+        if (isNextItemQuestionIndex) {
+            const nextIndex = item + 1
+            if (nextIndex < categoryQuestionsLength) {
+                return nextIndex / categoryQuestionsLength
+            } else {
+                return 1
+            }
+        } else if (item === 'questions') {
+            accumulated.push(item)
+            isNextItemQuestionIndex = true
+            const categoryQuestionsPath = jsonpath.stringify(accumulated) + '.*'
+            const categoryQuestions = jsonpath.query(quizData, categoryQuestionsPath)
+            categoryQuestionsLength = categoryQuestions.length
+        } else {
+            accumulated.push(item)
+        }
+    }
+    return 0
 }
 
 /**

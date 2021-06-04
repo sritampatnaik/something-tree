@@ -27,15 +27,18 @@ function serializeForStack(state) {
 }
 
 function updateState(state, copy) {
-    state.quizStatus = copy.quizStatus,
-    state.currCategory = copy.currCategory,
-    state.currQuestion = copy.currQuestion,
-    state.currOptions = copy.currOptions,
-    state.currResultScore = copy.currResultScore,
-    state.currResultHTML = copy.currResultHTML,
-    state.categoryScores = copy.categoryScores,
-    state.aggregateScore = copy.aggregateScore,
+    state.quizStatus = copy.quizStatus
+    state.currCategory = copy.currCategory
+    state.currQuestion = copy.currQuestion
+    state.currOptions = copy.currOptions
+    state.currResultScore = copy.currResultScore
+    state.currResultHTML = copy.currResultHTML
+    state.categoryScores = copy.categoryScores
+    state.aggregateScore = copy.aggregateScore
     state.currentPath = copy.currentPath
+    state.currCategoryCompletion = copy.currCategoryCompletion
+    state.quizCatTotalNum = copy.quizCatTotalNum
+    state.currCatCompNum = copy.currCatCompNum
 }
 
 const QUIZ_START_PATH = '$[0].category.questions[0].question'
@@ -56,11 +59,12 @@ export const mutations = {
     },
     UPDATE_QUIZ_STATUS(state, payload) {
         state.quizStatus = payload
+        if (state.quizStatus === StatusEnum.FINAL) {
+            state.currCatCompNum = state.quizCatTotalNum + 1
+        }
     },
     SET_QUESTION_DATA(state, questionData) {
-        if(state.currCategory != questionData.categoryTitle) {
-            state.currCatCompNum++
-        }
+        state.currCatCompNum = state.currentPath[1] + 1
         state.currCategory = questionData.categoryTitle
         state.currQuestion = questionData.questionText
         state.currOptions = questionData.options

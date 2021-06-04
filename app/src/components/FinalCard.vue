@@ -104,7 +104,7 @@ export default {
     methods : {
         async onSubmit() {
             this.isFormSubmitting = true
-            await this.$store.dispatch("contact/emailSubmit", {
+            await store.dispatch("contact/emailSubmit", {
                 email: this.email,
             });
             this.isFormSubmitting = false

@@ -27,12 +27,12 @@
 
                     <p v-if="overallScore < 3" class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
                         Hopefully, the questionnaire gave you a few ideas on how your ML system can 
-                        be better set to succeed in production! While there are a ton of suggestions, 
+                        be better set to succeed in production. While there are a ton of suggestions, 
                         prioritizing those that most reduce risk, like validation, monitoring, 
                         version control and easy rollbacks are the best bet.
                     </p>
                     <p v-else-if="overallScore < 5.5" class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
-                        Nice! Seems like your system is set up pretty well to succeed! Hopefully, this 
+                        Nice - seems like you have invested some effort in your ML system! Hopefully, this 
                         questionnaire gave you more ideas to further improve your project, reduce risk,
                         and increase quality.
                     </p>
@@ -41,12 +41,12 @@
                         you have suggestions on the content of this questionnaire.
                     </p>
                     <p class="mt-6 mx-auto max-w-2xl text-lg text-indigo-200">
-                        At <a href="https://metricrule.com" target="blank">MetricRule</a>, we are building an open-source monitoring stack for ML systems.
+                        At <a href="https://metricrule.com" target="blank" class="underline">MetricRule</a>, we are building an open-source monitoring stack for ML systems.
                         <br>
                         <span v-if="categoryScores.Monitoring < 6">
                             If improving your ML monitoring to better understand and get alerted on 
                             model behavior is of interest, do reach out to us about your needs. 
-                            We would love to chat and see if we can support you in this.
+                            We would love to chat about how we can support you in this.
                         </span>
                         <span v-else>
                             If there are specific needs that you are looking for in a ML monitoring tool, 

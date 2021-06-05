@@ -13,10 +13,10 @@
                     "text": "Do you monitor compliance to this schema?",
                     "options": [
                         {
-                        "text": "No",
+                        "text": "Yes, automatically",
                         "result": {
-                            "score": 0,
-                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>Some tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a>, <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>, and <a target=\"_blank\" href=\"https://json-schema.org/\">JSON Schema</a>.</p>"
+                            "score": 1,
+                            "text": "Great job 👍"
                         }
                         },
                         {
@@ -27,10 +27,10 @@
                         }
                         },
                         {
-                        "text": "Yes, automatically",
+                        "text": "No",
                         "result": {
-                            "score": 1,
-                            "text": "Great job 👍"
+                            "score": 0,
+                            "text": "<p>Monitoring compliance will alert you to the following possible issues:</p><ul><li>Pipeline errors in feature computation</li><li>Outdated expectations on features (could be a sign that the model is outdated)</li></ul><p>Some tools that may help you set up automatic validation are <a target=\"_blank\" href=\"https://docs.greatexpectations.io/en/latest/guides/how_to_guides/creating_and_editing_expectations/how_to_create_a_suite_from_a_json_schema_file.html\">Great Expectations</a>, <a target=\"_blank\" href=\"https://pydantic-docs.helpmanual.io/usage/models/\">Pydantic</a>, and <a target=\"_blank\" href=\"https://json-schema.org/\">JSON Schema</a>.</p>"
                         }
                         }
                     ]
@@ -51,17 +51,17 @@
                 "text": "Do you periodically check that each feature is necessary for your model's quality and are not redundant?",
                 "options": [
                 {
-                    "text": "Yes, manually",
-                    "result": {
-                    "score": 0.5,
-                    "text": "Consider automating this via a feature selection pipeline, or experiments to reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a>"
-                    }
-                },
-                {
                     "text": "Yes, automatically",
                     "result": {
                     "score": 1,
                     "text": "Good job!"
+                    }
+                },
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "Consider automating this via a feature selection pipeline, or experiments to reduce <a target=\"_blank\" href=\"https://sre.google/sre-book/eliminating-toil/\">toil</a>"
                     }
                 },
                 {
@@ -322,17 +322,17 @@
                 "text": "Have you tuned your hyperparameters?<br><br>Hyperparameters are parameters that are decided at the start of the training process (and not parameters which are derived, like node weights) - for instance learning rate and regularization coefficients. Tuning refers to picking the best combination of these hyperparameters.",
                 "options": [
                 {
-                    "text": "Yes, manually",
-                    "result": {
-                    "score": 0.5,
-                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a> offerings.</p>"
-                    }
-                },
-                {
                     "text": "Yes, automatically",
                     "result": {
                     "score": 1,
                     "text": "Nice!"
+                    }
+                },
+                {
+                    "text": "Yes, manually",
+                    "result": {
+                    "score": 0.5,
+                    "text": "<p>Finding optimal hyperparameters can be done automatically (following grid search approaches). See this<a target=\"_blank\" href=\"https://github.com/kelvins/awesome-mlops#hyperparameter-tuning\">list of tools</a>, and <a target=\"_blank\" href=\"https://cloud.google.com/ai-platform/optimizer/docs/overview\">Google&rsquo;s</a> and <a target=\"_blank\" href=\"https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html\">Amazon&rsquo;s</span></a> offerings.</p>"
                     }
                 },
                 {

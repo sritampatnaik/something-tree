@@ -20,6 +20,7 @@
                         <span class="text-indigo-200">{{score}}</span>
                     </h3>
                     <p class="mt-6 mx-auto max-w-2xl text-sm text-indigo-200">
+                        Each category score is out of 7.<br>
                         The overall score is the minimum of the score across each of the categories, 
                         since they are each important in your ML system being production ready.
                         <br>

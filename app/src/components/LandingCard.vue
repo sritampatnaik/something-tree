@@ -18,12 +18,14 @@
             </a>
                 with a comprehensive checklist, scoring system and a roadmap for improving production ML systems.
                 <br><br>
-                Find out how production ready your system is with this questionnaire:
+                The scoring is across 4 categories -<br>Features and Data, Model Development, ML Infrastructure and Monitoring.
+                <br>
+                Find out how production ready your system is:
         </p>
         <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
             <button @click="startQuiz" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
-                Start
+                Start Questionnaire
             </button>
             </div>
         </div>

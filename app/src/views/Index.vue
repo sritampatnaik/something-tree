@@ -4,9 +4,9 @@
         <header>
             <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
                 <div class="flex justify-start lg:w-0 lg:flex-1">
-                <a href="#">
-                    <span class="sr-only">Workflow</span>
-                    <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+                <a href="https://metricrule.com" target="_blank">
+                    <span class="sr-only">Metricrule</span>
+                    <h2 class="font-semibold">📏 Metricrule</h2>
                 </a>
                 </div>
             </div>

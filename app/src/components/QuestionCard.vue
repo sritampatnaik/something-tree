@@ -15,7 +15,7 @@
                                 {{currCategory}}
                             </span>
                             <span class="hidden md:inline">
-                               {{currCategory}} 
+                                {{currCategory}} 
                             </span>
                             </p>
                         </div>
@@ -35,7 +35,7 @@
                     </h1>
                     <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                         <div :class="'space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-' + options.length + ' sm:gap-5'">
-                            <button v-for="o in options" @click="submitAnswer(o.text)" :key="o.message" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-xl shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
+                            <button v-for="o in options" @click="submitAnswer(o.text)" :key="o.message" class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-xl shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
                                 {{o.text}}
                             </button>
                         </div>
